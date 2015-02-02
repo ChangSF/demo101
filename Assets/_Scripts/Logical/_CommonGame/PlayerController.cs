@@ -449,6 +449,35 @@ namespace SuperHero.Logical
 				mIC.Attack-=Attack;
 			}
 		}
+
+
+		public float speedUpDeltaTime=0.3f;
+		/// <summary>
+		/// 加速的剩余时间
+		/// </summary>
+		float speedUpTimeLeft=0f;
+		/// <summary>
+		/// 加速跑
+		/// </summary>
+		/// <param name="speedUp">增加的速度</param>
+		/// <param name="speedTime">加速持续的时间,加速时间有最短的限制，必须>2*速度改变时间</param>
+		public void SpeedUp(float speedUp,float speedTime)
+		{
+			//在加速过程中吃了加速的道具，刷新加速的时间
+			if(speedUpTimeLeft>0f)
+				speedUpTimeLeft=speedTime;
+			//启动加速的协程
+			StartCoroutine(SpeedUpYield());
+		}
+
+		IEnumerator SpeedUpYield()
+		{
+			while(speedUpTimeLeft>0f)
+			{
+				speedUpTimeLeft-=Time.deltaTime;
+				yield return null;
+			}
+		}
 		#endregion
 		#region UpdatePositionAndRotation
 

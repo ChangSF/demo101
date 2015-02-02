@@ -4,7 +4,7 @@ using System.Collections;
 namespace SuperHero.Entity
 {
 
-	public class GoodsItem {
+	public class GoodsItemVO {
 
 
 			public string name;                         //商品名字
