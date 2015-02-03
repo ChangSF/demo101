@@ -26,6 +26,9 @@ namespace SuperHero.Logical
 		/// 前进的速度
 		/// </summary>
 		public float moveSpeed=10f;
+
+		public float currentMoveSpeed;
+		public float targetSpeedUp=0f;
 		/// <summary>
 		/// 前进方向的方向向量.注：需要单位向量化
 		/// </summary>
@@ -97,6 +100,8 @@ namespace SuperHero.Logical
 		/// </summary>
 		private bool mIsHover=false;
 
+		private eSpeedMode mSpeedMode=eSpeedMode.normal;
+
 		Vector3 [] mCC_Center=new Vector3[2];
 		float [] mCC_Height=new float[2];
 
@@ -126,6 +131,8 @@ namespace SuperHero.Logical
 			mCC_Height[0]=mCC.height;
 			mCC_Height[1]=fallHeight;
 			mCC_Center[1]=fallCenter;
+
+			currentMoveSpeed=moveSpeed;
 		}
 		
 		// Update is called once per frame
@@ -149,6 +156,8 @@ namespace SuperHero.Logical
 //			GUILayout.Label(localXOffset.ToString());
 //			GUILayout.Label(isPause.ToString());
 //			GUILayout.Label(mJumpState.ToString());
+			GUILayout.Label(mSpeedMode.ToString());
+			GUILayout.Label(speedUpTimeLeft.ToString());
 		}
 
 		void OnControllerColliderHit(ControllerColliderHit hit)
@@ -464,19 +473,84 @@ namespace SuperHero.Logical
 		public void SpeedUp(float speedUp,float speedTime)
 		{
 			//在加速过程中吃了加速的道具，刷新加速的时间
-			if(speedUpTimeLeft>0f)
+			if(speedUpTimeLeft>2f*speedUpDeltaTime)
+			{
+				//0.3秒内再吃一个加速不现实吧，加速状态的速度最好是一个固定值
 				speedUpTimeLeft=speedTime;
-			//启动加速的协程
-			StartCoroutine(SpeedUpYield());
+				targetSpeedUp=speedUp;
+				if(mSpeedMode==eSpeedMode.normal||mSpeedMode==eSpeedMode.speedDown)
+					mSpeedMode=eSpeedMode.high;
+			}
+			else if(speedUpTimeLeft==0f)
+			{
+				targetSpeedUp=speedUp;
+				speedUpTimeLeft=speedTime;
+				mSpeedMode=eSpeedMode.speedUp;
+				//启动加速的协程
+				StartCoroutine(SpeedUpYield());
+			}
 		}
 
 		IEnumerator SpeedUpYield()
 		{
-			while(speedUpTimeLeft>0f)
+			float tempTimeLeft=speedUpTimeLeft-2.0f*speedUpDeltaTime;
+			float tempDeltaTime=speedUpDeltaTime;
+
+
+			while(mSpeedMode==eSpeedMode.speedUp)
 			{
-				speedUpTimeLeft-=Time.deltaTime;
+				if(tempDeltaTime>0f)
+				{
+					tempDeltaTime-=Time.deltaTime;
+					currentMoveSpeed=moveSpeed+targetSpeedUp*tempDeltaTime/speedUpDeltaTime;
+				}
+				else
+				{
+					tempDeltaTime=speedUpDeltaTime;
+					mSpeedMode=eSpeedMode.high;
+					currentMoveSpeed=moveSpeed+targetSpeedUp;
+					break;
+				}
 				yield return null;
 			}
+			yield return null;
+			while(mSpeedMode==eSpeedMode.high)
+			{
+				if(speedUpTimeLeft>0f)
+				{
+					speedUpTimeLeft-=Time.deltaTime;
+				}
+				else 
+				{
+					speedUpTimeLeft=0f;
+					mSpeedMode=eSpeedMode.speedDown;
+					break;
+				}
+				Debug.Log(tempTimeLeft.ToString());
+				yield return null;
+
+			}
+			yield return null;
+			while(mSpeedMode==eSpeedMode.speedDown)
+			{
+				if(tempDeltaTime>0f)
+				{
+					tempDeltaTime-=Time.deltaTime;
+					currentMoveSpeed=moveSpeed+targetSpeedUp*(1f-tempDeltaTime/speedUpDeltaTime);
+				}
+				else
+				{
+					tempDeltaTime=0f;
+					mSpeedMode=eSpeedMode.normal;
+					currentMoveSpeed=moveSpeed;
+					speedUpTimeLeft=0f;
+					break;
+				}
+				yield return null;
+
+			}
+			yield return null;
+
 		}
 		#endregion
 		#region UpdatePositionAndRotation
@@ -612,19 +686,19 @@ namespace SuperHero.Logical
 			switch(mRunMode)
 			{
 			case eRunMode.straight:
-				Vector3 moveDirection=new Vector3(localXOffset,localYOffset,moveSpeed*Time.deltaTime);
+				Vector3 moveDirection=new Vector3(localXOffset,localYOffset,currentMoveSpeed*Time.deltaTime);
 				moveDirection= transform.TransformDirection(moveDirection);
 				mCC.Move(moveDirection);
 				break;
 			case eRunMode.roundRight:
-				float s=moveSpeed*Time.deltaTime;
+				float s=currentMoveSpeed*Time.deltaTime;
 				float d=s/radius;
 				float x=radius-radius*Mathf.Cos(d);
 				float h=radius*Mathf.Sin(d);
 				mCC.Move(transform.TransformDirection(new Vector3(x,localYOffset,h)));
 				break;
 			case eRunMode.roundLeft:
-				float s1=moveSpeed*Time.deltaTime;
+				float s1=currentMoveSpeed*Time.deltaTime;
 				float d1=s1/radius;
 				float x1=radius*Mathf.Cos(d1)-radius;
 				float h1=radius*Mathf.Sin(d1);
@@ -671,6 +745,14 @@ namespace SuperHero.Logical
 			straight=1,
 			roundRight=2,
 			roundLeft=3,
+		}
+
+		private enum eSpeedMode
+		{
+			speedUp=0,
+			speedDown=1,
+			high=2,
+			normal=3,
 		}
 		#endregion
 	}

@@ -69,7 +69,10 @@ namespace SuperHero.Logical
 
 		void RespondKeyCode()
 		{
-
+			if(Input.GetKeyDown(KeyCode.Space))
+			{
+				GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().SpeedUp(10f,5f);
+			}
 
 			if(Input.GetKeyDown(KeyCode.UpArrow))
 			{
