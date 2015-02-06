@@ -27,8 +27,7 @@ namespace SuperHero.Logical
 		/// </summary>
 		public float moveSpeed=10f;
 
-		public float currentMoveSpeed;
-		public float targetSpeedUp=0f;
+
 		/// <summary>
 		/// 前进方向的方向向量.注：需要单位向量化
 		/// </summary>
@@ -100,7 +99,7 @@ namespace SuperHero.Logical
 		/// </summary>
 		private bool mIsHover=false;
 
-		private eSpeedMode mSpeedMode=eSpeedMode.normal;
+
 
 		Vector3 [] mCC_Center=new Vector3[2];
 		float [] mCC_Height=new float[2];
@@ -132,7 +131,6 @@ namespace SuperHero.Logical
 			mCC_Height[1]=fallHeight;
 			mCC_Center[1]=fallCenter;
 
-			currentMoveSpeed=moveSpeed;
 		}
 		
 		// Update is called once per frame
@@ -148,26 +146,25 @@ namespace SuperHero.Logical
 
 		}
 
-		void OnGUI()
-		{
-			//GUILayout.Label(mTrack.ToString());
-//			GUILayout.Label( mSurplusChangeTime.ToString());
-//			GUILayout.Label(bIsChangeTrack.ToString());
-//			GUILayout.Label(localXOffset.ToString());
-//			GUILayout.Label(isPause.ToString());
-//			GUILayout.Label(mJumpState.ToString());
-			GUILayout.Label(mSpeedMode.ToString());
-			GUILayout.Label(speedUpTimeLeft.ToString());
-		}
+
 
 		void OnControllerColliderHit(ControllerColliderHit hit)
 		{
-
 			if(hit.collider.transform.root.gameObject.layer!=9&&mRunMode==eRunMode.straight)
+			{
+				GetHurt(hit.collider.GetComponent<CarInfo>().hurtPoint,hit);
+			}
+			
+		}
+
+		public void GetHurt(float blood,ControllerColliderHit hit)
+		{
+			//在直行道上面行走
+			if(mRunMode==eRunMode.straight)
 			{
 				if(bIsChangeTrack==true)
 				{
-					print("接触到碰撞器:"+LayerMask.LayerToName( hit.collider.gameObject.layer));
+					Debuger.Log("换轨中接触到障碍物:"+hit.collider.name+"  HP减少:"+blood.ToString());
 					mSurplusChangeTime=xChangTime-mSurplusChangeTime;
 					if(mEndPos-mStartPos>0f)//Right
 					{
@@ -181,25 +178,62 @@ namespace SuperHero.Logical
 					mEndPos=mStartPos;
 					mStartPos=temp;
 					bIsChangeTrack=true;
-
-					currentGameInfo.HP-=2f;
+					
+					currentGameInfo.HP-=blood;
 				}
 				else
 				{
-					currentGameInfo.HP-=5f;
+					Debuger.Log("正面接触到障碍物:"+hit.collider.name+"  HP减少:"+blood.ToString());
+					currentGameInfo.HP-=blood;
 				}
-				Debug.Log("Destoryed "+hit.collider.name);
+				Debuger.Log("Destoryed "+hit.collider.name);
 				Destroy( hit.collider.gameObject);
-
+				
 				if(currentGameInfo.HP<=0f)
 				{
-					Debug.Log("Dead!!!!!");
+					Debuger.Log("Dead!!!!!");
 					currentGameInfo.HP=0f;
 				}
-
-
+				
+				
 			}
-			
+		}
+		public void GetHurt(float blood)
+		{
+			//在直行道上面行走
+			if(mRunMode==eRunMode.straight)
+			{
+				if(bIsChangeTrack==true)
+				{
+					mSurplusChangeTime=xChangTime-mSurplusChangeTime;
+					if(mEndPos-mStartPos>0f)//Right
+					{
+						mTrack--;
+					}
+					else//Left
+					{
+						mTrack++;
+					}
+					float temp=mEndPos;
+					mEndPos=mStartPos;
+					mStartPos=temp;
+					bIsChangeTrack=true;
+					
+					currentGameInfo.HP-=blood;
+				}
+				else
+				{
+					currentGameInfo.HP-=blood;
+				}
+				
+				if(currentGameInfo.HP<=0f)
+				{
+					Debuger.Log("Dead!!!!!");
+					currentGameInfo.HP=0f;
+				}
+				
+				
+			}
 		}
 		#endregion
 		#region OperationReflect
@@ -460,98 +494,7 @@ namespace SuperHero.Logical
 		}
 
 
-		public float speedUpDeltaTime=0.3f;
-		/// <summary>
-		/// 加速的剩余时间
-		/// </summary>
-		float speedUpTimeLeft=0f;
-		/// <summary>
-		/// 加速跑
-		/// </summary>
-		/// <param name="speedUp">增加的速度</param>
-		/// <param name="speedTime">加速持续的时间,加速时间有最短的限制，必须>2*速度改变时间</param>
-		public void SpeedUp(float speedUp,float speedTime)
-		{
-			//在加速过程中吃了加速的道具，刷新加速的时间
-			if(speedUpTimeLeft>2f*speedUpDeltaTime)
-			{
-				//0.3秒内再吃一个加速不现实吧，加速状态的速度最好是一个固定值
-				speedUpTimeLeft=speedTime;
-				targetSpeedUp=speedUp;
-				if(mSpeedMode==eSpeedMode.normal||mSpeedMode==eSpeedMode.speedDown)
-					mSpeedMode=eSpeedMode.high;
-			}
-			else if(speedUpTimeLeft==0f)
-			{
-				targetSpeedUp=speedUp;
-				speedUpTimeLeft=speedTime;
-				mSpeedMode=eSpeedMode.speedUp;
-				//启动加速的协程
-				StartCoroutine(SpeedUpYield());
-			}
-		}
 
-		IEnumerator SpeedUpYield()
-		{
-			float tempTimeLeft=speedUpTimeLeft-2.0f*speedUpDeltaTime;
-			float tempDeltaTime=speedUpDeltaTime;
-
-
-			while(mSpeedMode==eSpeedMode.speedUp)
-			{
-				if(tempDeltaTime>0f)
-				{
-					tempDeltaTime-=Time.deltaTime;
-					currentMoveSpeed=moveSpeed+targetSpeedUp*tempDeltaTime/speedUpDeltaTime;
-				}
-				else
-				{
-					tempDeltaTime=speedUpDeltaTime;
-					mSpeedMode=eSpeedMode.high;
-					currentMoveSpeed=moveSpeed+targetSpeedUp;
-					break;
-				}
-				yield return null;
-			}
-			yield return null;
-			while(mSpeedMode==eSpeedMode.high)
-			{
-				if(speedUpTimeLeft>0f)
-				{
-					speedUpTimeLeft-=Time.deltaTime;
-				}
-				else 
-				{
-					speedUpTimeLeft=0f;
-					mSpeedMode=eSpeedMode.speedDown;
-					break;
-				}
-				Debug.Log(tempTimeLeft.ToString());
-				yield return null;
-
-			}
-			yield return null;
-			while(mSpeedMode==eSpeedMode.speedDown)
-			{
-				if(tempDeltaTime>0f)
-				{
-					tempDeltaTime-=Time.deltaTime;
-					currentMoveSpeed=moveSpeed+targetSpeedUp*(1f-tempDeltaTime/speedUpDeltaTime);
-				}
-				else
-				{
-					tempDeltaTime=0f;
-					mSpeedMode=eSpeedMode.normal;
-					currentMoveSpeed=moveSpeed;
-					speedUpTimeLeft=0f;
-					break;
-				}
-				yield return null;
-
-			}
-			yield return null;
-
-		}
 		#endregion
 		#region UpdatePositionAndRotation
 
@@ -686,19 +629,19 @@ namespace SuperHero.Logical
 			switch(mRunMode)
 			{
 			case eRunMode.straight:
-				Vector3 moveDirection=new Vector3(localXOffset,localYOffset,currentMoveSpeed*Time.deltaTime);
+				Vector3 moveDirection=new Vector3(localXOffset,localYOffset,moveSpeed*Time.deltaTime);
 				moveDirection= transform.TransformDirection(moveDirection);
 				mCC.Move(moveDirection);
 				break;
 			case eRunMode.roundRight:
-				float s=currentMoveSpeed*Time.deltaTime;
+				float s=moveSpeed*Time.deltaTime;
 				float d=s/radius;
 				float x=radius-radius*Mathf.Cos(d);
 				float h=radius*Mathf.Sin(d);
 				mCC.Move(transform.TransformDirection(new Vector3(x,localYOffset,h)));
 				break;
 			case eRunMode.roundLeft:
-				float s1=currentMoveSpeed*Time.deltaTime;
+				float s1=moveSpeed*Time.deltaTime;
 				float d1=s1/radius;
 				float x1=radius*Mathf.Cos(d1)-radius;
 				float h1=radius*Mathf.Sin(d1);
@@ -747,13 +690,7 @@ namespace SuperHero.Logical
 			roundLeft=3,
 		}
 
-		private enum eSpeedMode
-		{
-			speedUp=0,
-			speedDown=1,
-			high=2,
-			normal=3,
-		}
+
 		#endregion
 	}
 

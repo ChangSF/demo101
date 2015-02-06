@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\_Scripts\DataAccess\CSV_Parser.cs" />
      <Compile Include="Assets\_Scripts\DataAccess\NetListener.cs" />
      <Compile Include="Assets\_Scripts\DataAccess\NetReceiver.cs" />
      <Compile Include="Assets\_Scripts\DataAccess\SocketClient.cs" />
@@ -59,11 +60,14 @@
      <Compile Include="Assets\_Scripts\Entity\PetInfo.cs" />
      <Compile Include="Assets\_Scripts\Entity\SkillInfo.cs" />
      <Compile Include="Assets\_Scripts\Logical\Login.cs" />
+     <Compile Include="Assets\_Scripts\Logical\PropertyMaster.cs" />
      <Compile Include="Assets\_Scripts\Logical\TaskManager.cs" />
+     <Compile Include="Assets\_Scripts\Logical\_CommonGame\CarInfo.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\CommonGameUI.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\InputControl.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\PlayerAnimationController.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\PlayerController.cs" />
+     <Compile Include="Assets\_Scripts\Logical\_CommonGame\PropManager.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\reStartTrigger.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\roundTrigger.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\startTrigger.cs" />
@@ -102,6 +106,7 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ConvertDepth.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionCurvesSimple.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderYUV.shader" />
+     <None Include="Assets\StreamingAssets\scenesData\demo\demo.unity\cars.txt" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowEffectDownsample.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\CreaseApply.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ChromaticAberrationShader.shader" />
@@ -143,6 +148,9 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendForBloom.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity 4.6.1/Unity.app/Contents/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Debuger">
+ <HintPath>/Users/chang/Unity3D/demo1/Assets/Plugins/Debuger.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

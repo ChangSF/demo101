@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using System.IO;
 
-
 [CustomEditor(typeof(StoreCars))]
 public class StoreCarsEditor : Editor {
 	StoreCars _target;

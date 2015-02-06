@@ -71,7 +71,7 @@ namespace SuperHero.Logical
 		{
 			if(Input.GetKeyDown(KeyCode.Space))
 			{
-				GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().SpeedUp(10f,5f);
+				GameObject.FindGameObjectWithTag("Player").GetComponent<PropertyMaster>().SpeedUp(10f,3f);
 			}
 
 			if(Input.GetKeyDown(KeyCode.UpArrow))
