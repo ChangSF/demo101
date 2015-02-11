@@ -59,6 +59,7 @@
      <Compile Include="Assets\_Scripts\Entity\MainStoreVO.cs" />
      <Compile Include="Assets\_Scripts\Entity\PetInfo.cs" />
      <Compile Include="Assets\_Scripts\Entity\SkillInfo.cs" />
+     <Compile Include="Assets\_Scripts\Global\GlobalInGame.cs" />
      <Compile Include="Assets\_Scripts\Logical\Login.cs" />
      <Compile Include="Assets\_Scripts\Logical\PropertyMaster.cs" />
      <Compile Include="Assets\_Scripts\Logical\TaskManager.cs" />
@@ -70,6 +71,7 @@
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\GroupAttack.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\RecoverHP.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\SingleAttack.cs" />
+     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\SpeedUp.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\PropManager.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\PropPlay\GroupAttackPlay.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\reStartTrigger.cs" />

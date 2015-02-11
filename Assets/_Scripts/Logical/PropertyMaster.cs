@@ -3,6 +3,9 @@ using System.Collections;
 
 namespace SuperHero.Logical
 {
+	/// <summary>
+	/// 道具效果实现类
+	/// </summary>
 	public class PropertyMaster : MonoBehaviour
 	{
 		public float originalMoveSpeed;
@@ -27,9 +30,21 @@ namespace SuperHero.Logical
 			
 		}
 
-		#region 攻击效果
+		#region 群体攻击效果
 
 
+
+
+
+
+		#endregion
+
+		#region 单体攻击效果
+		
+		
+		
+		
+		
 		#endregion
 
 		#region 回血效果

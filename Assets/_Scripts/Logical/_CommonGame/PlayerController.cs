@@ -108,6 +108,7 @@ namespace SuperHero.Logical
 		#region Interface
 		// Use this for initialization
 		void Start () {
+			GlobalInGame.currentPC=this;
 			currentGameInfo.HP_Max=100f;
 			currentGameInfo.MP_Max=100f;
 			currentGameInfo.HP=100f;
