@@ -5,14 +5,91 @@ namespace SuperHero.Logical
 {
 	public class GroupAttackPlay : MonoBehaviour {
 
+		public float gravity=20f;
+		public float flyTime=0.5f;
+		public float addedSpeed=10f;
+		/// <summary>
+		/// 特效的实现
+		/// </summary>
+		public GameObject LiZi;
+
+		public GameObject lz;
+
+		private float ySpeed=0f;
+		private bool isFlying=false;
 		// Use this for initialization
-		void Start () {
-		
+		void Start ()
+		{
+			
 		}
 		
 		// Update is called once per frame
-		void Update () {
-		
+		void Update () 
+		{
+			if(isFlying)
+			{
+				ySpeed-=Time.deltaTime;
+				transform.Translate(
+					transform.TransformVector( 
+				           new Vector3(0f,ySpeed*Time.deltaTime,(addedSpeed+GlobalInGame.currentPC.moveSpeed)*Time.deltaTime)));
+				StartCoroutine(FlyEnd());
+
+
+
+			}
 		}
+
+		public void Init()
+		{
+			isFlying=false;
+			transform.position=Vector3.zero;
+			transform.rotation=Quaternion.identity;
+			transform.localScale=new Vector3(1f,1f,1f);
+		}
+
+		public void Init(Vector3 postion,Quaternion rotation,Vector3 scale)
+		{
+			isFlying=false;
+			transform.position=postion;
+			transform.rotation=rotation;
+			transform.localScale=scale;
+		}
+		/// <summary>
+		/// 使用前必须进行初始化!!!!!!
+		/// </summary>
+		/// <param name="gravity">Gravity.</param>
+		/// <param name="flyTime">Fly time.</param>
+		public void Flying(float gravity,float flyTime,float rotateSpeed)
+		{
+			this.gravity=gravity;
+			this.flyTime=flyTime;
+			this.addedSpeed=rotateSpeed;
+			ySpeed=gravity*flyTime*0.5f;
+			isFlying=true;
+
+		}
+
+		void OnCollisionEnter(Collision other)
+		{
+			StopCoroutine(FlyEnd());
+			if(lz==null&&LiZi!=null)
+			{
+				lz=(GameObject)Instantiate(LiZi);
+			}
+			//粒子效果的播放啊，重置啊什么操作的调用
+			
+			/////////////
+			isFlying=false;
+			Debuger.Log("B O O M ! ! !");
+
+		}
+
+		IEnumerator FlyEnd()
+		{
+			yield return new WaitForSeconds(flyTime*2f);
+			Init();
+			yield return null;
+		}
+
 	}
 }

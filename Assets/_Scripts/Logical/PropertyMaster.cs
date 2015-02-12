@@ -21,6 +21,7 @@ namespace SuperHero.Logical
 
 		void Start () 
 		{
+			GlobalInGame.currentPM=this;
 			pc=GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 			if(pc==null)
 			{
@@ -32,7 +33,10 @@ namespace SuperHero.Logical
 
 		#region 群体攻击效果
 
+		public void GroupAttack()
+		{
 
+		}
 
 
 
