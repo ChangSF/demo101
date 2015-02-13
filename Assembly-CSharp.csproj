@@ -58,9 +58,10 @@
      <Compile Include="Assets\_Scripts\Entity\ItemInfo.cs" />
      <Compile Include="Assets\_Scripts\Entity\MainStoreVO.cs" />
      <Compile Include="Assets\_Scripts\Entity\PetInfo.cs" />
-     <Compile Include="Assets\_Scripts\Entity\Prop_GroupAttack.cs" />
+     <Compile Include="Assets\_Scripts\Entity\PropInfo.cs" />
      <Compile Include="Assets\_Scripts\Entity\SkillInfo.cs" />
      <Compile Include="Assets\_Scripts\Global\GlobalInGame.cs" />
+     <Compile Include="Assets\_Scripts\Logical\DebugerController.cs" />
      <Compile Include="Assets\_Scripts\Logical\Login.cs" />
      <Compile Include="Assets\_Scripts\Logical\PropertyMaster.cs" />
      <Compile Include="Assets\_Scripts\Logical\TaskManager.cs" />

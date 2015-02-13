@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using SuperHero.Entity;
 namespace SuperHero.Logical
 {
 	public class GroupAttackPlay : MonoBehaviour {
@@ -8,6 +8,9 @@ namespace SuperHero.Logical
 		public float gravity=20f;
 		public float flyTime=0.5f;
 		public float addedSpeed=10f;
+
+		private PropInfo propInfo;
+
 		/// <summary>
 		/// 特效的实现
 		/// </summary>
@@ -15,12 +18,12 @@ namespace SuperHero.Logical
 
 		public GameObject lz;
 
-		private float ySpeed=0f;
-		private bool isFlying=false;
+		public float ySpeed=0f;
+		public bool isFlying=false;
 		// Use this for initialization
 		void Start ()
 		{
-			
+
 		}
 		
 		// Update is called once per frame
@@ -28,7 +31,7 @@ namespace SuperHero.Logical
 		{
 			if(isFlying)
 			{
-				ySpeed-=Time.deltaTime;
+				ySpeed-=Time.deltaTime*gravity;
 				transform.Translate(
 					transform.TransformVector( 
 				           new Vector3(0f,ySpeed*Time.deltaTime,(addedSpeed+GlobalInGame.currentPC.moveSpeed)*Time.deltaTime)));
@@ -42,6 +45,7 @@ namespace SuperHero.Logical
 		public void Init()
 		{
 			isFlying=false;
+			isEnter=false;
 			transform.position=Vector3.zero;
 			transform.rotation=Quaternion.identity;
 			transform.localScale=new Vector3(1f,1f,1f);
@@ -69,25 +73,51 @@ namespace SuperHero.Logical
 
 		}
 
+		/// <summary>
+		/// 使用前必须进行初始化!!!!!!
+		/// </summary>
+		/// <param name="gravity">Gravity.</param>
+		/// <param name="flyTime">Fly time.</param>
+		public void Flying(PropInfo propInfo)
+		{
+			this.propInfo=propInfo;
+			this.gravity=propInfo.Gravity;
+			this.flyTime=propInfo.FlyTime;
+			this.addedSpeed=propInfo.FlySpeed;
+			ySpeed=gravity*flyTime*0.5f;
+			isFlying=true;
+			this.gameObject.SetActive(true);
+		}
+
+		bool isEnter=false;
 		void OnCollisionEnter(Collision other)
 		{
-			StopCoroutine(FlyEnd());
-			if(lz==null&&LiZi!=null)
+
+			if(isEnter==false)
 			{
-				lz=(GameObject)Instantiate(LiZi);
+				isEnter=true;
+				StopCoroutine(FlyEnd());
+				if(lz==null&&LiZi!=null)
+				{
+					lz=(GameObject)Instantiate(LiZi);
+				}
+				//粒子效果的播放啊，重置啊什么操作的调用
+				
+				/////////////
+				isFlying=false;
+				Debuger.Log("B O O M ! ! !");
+				Physics.CapsuleCastAll
+				this.gameObject.SetActive(false);
 			}
-			//粒子效果的播放啊，重置啊什么操作的调用
-			
-			/////////////
-			isFlying=false;
-			Debuger.Log("B O O M ! ! !");
 
 		}
 
 		IEnumerator FlyEnd()
 		{
-			yield return new WaitForSeconds(flyTime*2f);
-			Init();
+			yield return new WaitForSeconds(flyTime*4f);
+			Debuger.Log("time end!");
+			isFlying=false;
+			this.gameObject.SetActive(false);
 			yield return null;
 		}
 

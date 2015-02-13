@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SuperHero.Entity;
 
 namespace SuperHero.Logical
 {
@@ -31,13 +32,40 @@ namespace SuperHero.Logical
 			
 		}
 
+		public void GetProp(PropInfo prop)
+		{
+			switch(prop.AttackMode)
+			{
+			case eAttackMode.GroupAttack:
+				break;
+			case eAttackMode.GroupAttract:
+				break;
+			case eAttackMode.SingleAchieve:
+				break;
+			case eAttackMode.SingleAttack:
+				break;
+			case eAttackMode.SingleRecover:
+				break;
+			case eAttackMode.SingleSpeedUp:
+				SpeedUp(prop.FlySpeed,prop.FlyTime);
+				break;
+			default:
+				break;
+			}
+		}
+
 		#region 群体攻击效果
 
-		public void GroupAttack()
+		public void GroupAttack(PropInfo ga)
 		{
 
 		}
 
+
+		public void GroupAttackPlay(PropInfo ga)
+		{
+
+		}
 
 
 
