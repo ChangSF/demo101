@@ -8,7 +8,7 @@ namespace SuperHero.Logical
 		public float gravity=20f;
 		public float flyTime=0.5f;
 		public float addedSpeed=10f;
-
+		public float distance=10f;
 		private PropInfo propInfo;
 
 		/// <summary>
@@ -40,6 +40,8 @@ namespace SuperHero.Logical
 
 
 			}
+
+
 		}
 
 		public void Init()
@@ -106,8 +108,27 @@ namespace SuperHero.Logical
 				/////////////
 				isFlying=false;
 				Debuger.Log("B O O M ! ! !");
-				Physics.CapsuleCastAll
-				this.gameObject.SetActive(false);
+				//RaycastHit[] hits= Physics.CapsuleCastAll(Vector3.zero,Vector3.zero,20f,Vector3.up,distance);
+//				RaycastHit[] hits= Physics.SphereCastAll(transform.position,distance*5f,Vector3.forward);
+				Ray ray=new Ray(transform.position,transform.position+new Vector3(0f,0.1f,0f));
+				RaycastHit[] hits=Physics.SphereCastAll(ray,distance);
+				if(hits.Length>0)
+				{
+					foreach(RaycastHit hit in hits)
+					{
+						//Obstacle障碍物
+						if(hit.collider.gameObject.layer==10)
+						{
+							hit.collider.gameObject.SetActive(false);
+						}
+						//Monster怪物
+						if(hit.collider.gameObject.layer==11)
+						{
+							hit.collider.gameObject.SetActive(false);
+						}
+					}
+				}
+				gameObject.SetActive(false);
 			}
 
 		}

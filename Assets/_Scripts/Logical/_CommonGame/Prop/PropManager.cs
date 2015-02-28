@@ -2,34 +2,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using SuperHero.Entity;
+using System.Collections.Specialized;
 namespace SuperHero.Logical
 {
 	public class PropManager :MonoBehaviour {
 
-		public GameObject PrefabSpeedUp;
+		public Dictionary<int, GameObject> PrefabByID=new Dictionary<int, GameObject>();
 
-		public Queue<GameObject> QueueSpeedup;
-
-		public GameObject PrefabGroupAttack;
-
-		public Queue <GameObject> QueueGroupAttack;
-
-		public GameObject PrefabGAPlay;
-		
-		public Queue <GameObject> QueueGroupAttackPlay;
-
-		public GameObject PrefabRecoverHP;
-
-		public Queue<GameObject> QueueRecoverHP;
-		/// <summary>
-		/// 地雷
-		/// </summary>
-		public GameObject PrefabMine;
-
-		public Queue<GameObject> QueueMine;
+		public Dictionary<int, Queue<GameObject>> Props=new Dictionary<int, Queue<GameObject>>();
 
 
 
+		public void Init()
+		{
+
+		}
+
+		public void Dispose()
+		{
+
+			foreach (Queue<GameObject> qq in Props)
+			{
+				foreach(GameObject pp in qq)
+				{
+					Destroy(pp);
+				}
+				qq.Clear();
+			}
+			Props.Clear();
+			Debuger.Log("PropManager have Disposed!");
+		}
+
+
+		public GameObject GetPropByID(int propId)
+		{
+			Props.
+		}
 
 
 

@@ -85,11 +85,11 @@ namespace SuperHero.Logical
 		/// <summary>
 		/// 当前运行在哪个轨道
 		/// </summary>
-		private eTrack mTrack=eTrack.middle;
+		public eTrack mTrack=eTrack.middle;
 		/// <summary>
 		/// 轨道的数量3or5
 		/// </summary>
-		private eTrackNum mTrackNum=eTrackNum.Three;
+		public eTrackNum mTrackNum=eTrackNum.Three;
 		/// <summary>
 		/// Y轴方向的速度
 		/// </summary>
@@ -669,7 +669,7 @@ namespace SuperHero.Logical
 			DoubleJump=2,
 		};
 
-		private enum eTrack
+		public enum eTrack
 		{
 			left=1,
 			midLeft=2,
@@ -678,7 +678,7 @@ namespace SuperHero.Logical
 			right=5,
 		};
 
-		private enum eTrackNum
+		public enum eTrackNum
 		{
 			Three=3,
 			Five=5,

@@ -32,6 +32,7 @@ namespace SuperHero.Logical
 		{
 			propInfo=new PropInfo(Id,flyTime,gravity,flySpeed,blood,attackMode,description,maxNum);
 			GlobalInGame.currentPM.GetProp(propInfo);
+			this.gameObject.SetActive(false);
 
 		}
 	}
