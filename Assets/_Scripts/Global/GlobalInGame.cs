@@ -9,13 +9,35 @@ public class GlobalInGame
 	static PropManager currentPropManager=null;
 
 
+
 	public static PropManager CurrentPropManager {
 		get {
 			if(currentPropManager==null)
-				GameObject.Find("PropManager").GetComponent<PropManager>();
-			if(currentPropManager==null)
-				currentPropManager=new PropManager();
+			{
+				GameObject propManagerGO=GameObject.Find("PropManager");
+				currentPropManager=propManagerGO.GetComponent<PropManager>();
+				if(currentPropManager==null)
+				{
+					if(propManagerGO==null)
+						propManagerGO=new GameObject("PropManager");
+					if(propManagerGO!=null)
+					{
+						currentPropManager=propManagerGO.AddComponent<PropManager>();
+					}
+				}
+			}
+
 			return currentPropManager;
 		}
+		set {
+			currentPropManager = value;
+		}
+	}
+
+	public static void Init()
+	{
+		currentPC=null;
+		currentPM=null;
+		currentPropManager=null;
 	}
 }

@@ -73,6 +73,7 @@
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\DestorySelf.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\GroupAttack.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\PropManager.cs" />
+     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\Record.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\RecoverHP.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\SingleAttack.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\SpeedUp.cs" />
