@@ -10,7 +10,7 @@ public class DestorySelf : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		transform.Rotate(new Vector3(0f,90f*Time.deltaTime,0f));
 	}
 
 	void OnTriggerEnter()
