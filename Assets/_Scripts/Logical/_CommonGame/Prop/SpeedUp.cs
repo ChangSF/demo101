@@ -9,7 +9,7 @@ namespace SuperHero.Logical
 
 		void OnTriggerEnter(Collider other)
 		{
-			if(other.collider.gameObject.tag=="Player")
+			if(other.GetComponent<Collider>().gameObject.tag=="Player")
 			{
 				GlobalInGame.currentPM.SpeedUp(addedSpeed,continueTime);
 				this.gameObject.SetActive(false);

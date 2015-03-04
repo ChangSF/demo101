@@ -1,15 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/_Scripts/Global/GlobalInGame.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Editor/Image Effects/CameraMotionBlurEditor.js">
     <Files>
-      <File FileName="Assets/_Scripts/Logical/_CommonGame/BuildingManager.cs" Line="6" Column="30" />
-      <File FileName="Assets/_Scripts/Logical/_CommonGame/BuildingCreater.cs" Line="10" Column="3" />
-      <File FileName="Assets/_Scripts/Logical/_CommonGame/PropCreater.cs" Line="168" Column="48" />
+      <File FileName="Assets/Editor/Image Effects/CameraMotionBlurEditor.js" Line="31" Column="3" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/BuildingManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/BuildingCreater.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/PropCreater.cs" Line="1" Column="1" />
       <File FileName="Assets/_Scripts/Logical/_CommonGame/Prop/SingleAttack.cs" Line="1" Column="1" />
       <File FileName="Assets/_Scripts/Logical/_CommonGame/Prop/RecoverHP.cs" Line="1" Column="1" />
       <File FileName="Assets/_Scripts/Logical/_CommonGame/PropPlay/GroupAttackPlay.cs" Line="1" Column="1" />
       <File FileName="Assets/_Scripts/Logical/PropertyMaster.cs" Line="1" Column="1" />
-      <File FileName="Assets/_Scripts/Global/GlobalInGame.cs" Line="44" Column="56" />
+      <File FileName="Assets/_Scripts/Global/GlobalInGame.cs" Line="46" Column="5" />
       <File FileName="Assets/_Scripts/Logical/_CommonGame/Prop/SpeedUp.cs" Line="1" Column="1" />
       <File FileName="Assets/_Scripts/Entity/PropInfo.cs" Line="1" Column="1" />
     </Files>
