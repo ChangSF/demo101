@@ -242,30 +242,30 @@ namespace SuperHero.Logical
 //		int hight=1;
 //		int [] ids=new int[]{130008,130001,130002,130003,130004,130005,130006};
 //		// Update is called once per frame
-		void Update () 
-		{
-//			if(Input.GetKeyDown(KeyCode.A))
+//		void Update () 
+//		{
+////			if(Input.GetKeyDown(KeyCode.A))
+////			{
+////				GameObject prop=null;
+////				int idd=ids[ Random.Range(0,6)];
+////				prop= GlobalInGame.CurrentPropManager.GetPropByID(idd);
+////				if(prop!=null)
+////				{
+////					props.Add(prop);
+////					prop.transform.position=new Vector3(0f,2f*hight,0f);
+////					hight++;
+////					prop.SetActive(true);
+////				}
+////			}
+////			if(Input.GetKey(KeyCode.D))
+////			{
+////				GlobalInGame.CurrentPropManager.HideAll();
+////			}
+//			if(Input.GetKeyDown(KeyCode.C))
 //			{
-//				GameObject prop=null;
-//				int idd=ids[ Random.Range(0,6)];
-//				prop= GlobalInGame.CurrentPropManager.GetPropByID(idd);
-//				if(prop!=null)
-//				{
-//					props.Add(prop);
-//					prop.transform.position=new Vector3(0f,2f*hight,0f);
-//					hight++;
-//					prop.SetActive(true);
-//				}
+//				SetProp();
 //			}
-//			if(Input.GetKey(KeyCode.D))
-//			{
-//				GlobalInGame.CurrentPropManager.HideAll();
-//			}
-			if(Input.GetKeyDown(KeyCode.C))
-			{
-				SetProp();
-			}
-
-		}
+//
+//		}
 	}
 }

@@ -65,6 +65,8 @@
      <Compile Include="Assets\_Scripts\Logical\Login.cs" />
      <Compile Include="Assets\_Scripts\Logical\PropertyMaster.cs" />
      <Compile Include="Assets\_Scripts\Logical\TaskManager.cs" />
+     <Compile Include="Assets\_Scripts\Logical\_CommonGame\BuildingCreater.cs" />
+     <Compile Include="Assets\_Scripts\Logical\_CommonGame\BuildingManager.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\CarInfo.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\CommonGameUI.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\InputControl.cs" />
@@ -86,6 +88,7 @@
      <Compile Include="Assets\_Scripts\Tools\StoreCars.cs" />
      <Compile Include="Assets\_Scripts\UI\GUIManager.cs" />
      <Compile Include="Assets\_Scripts\UI\GUIWindows.cs" />
+     <Compile Include="Assets\_Scripts\UI\TestClickHandler.cs" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
