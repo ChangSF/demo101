@@ -8,7 +8,7 @@ public class GlobalInGame
 	public static PropertyMaster currentPM=null;
 	static PropManager currentPropManager=null;
 	static BuildingManager currentBuildingManager=null;
-
+	static BuildingCreater currentBuildingCreater=null;
 
 	public static PropManager CurrentPropManager {
 		get {
@@ -23,6 +23,7 @@ public class GlobalInGame
 					if(propManagerGO!=null)
 					{
 						currentPropManager=propManagerGO.AddComponent<PropManager>();
+						currentPropManager.GetPrefabsFromFile();
 					}
 				}
 			}
@@ -43,11 +44,26 @@ public class GlobalInGame
 				{
 					buildingManager=new GameObject("BuildingManager");
 				}
+				currentBuildingManager=buildingManager.GetComponent<BuildingManager>();
+				if(currentBuildingManager==null)
+				{
+					currentBuildingManager=buildingManager.AddComponent<BuildingManager>();
+					currentBuildingManager.GetPrefabsFromFile();
+				}
 			}
 			return currentBuildingManager;
 		}
 		set {
 			currentBuildingManager = value;
+		}
+	}
+
+	public static BuildingCreater CurrentBuildingCreater {
+		get {
+			return currentBuildingCreater;
+		}
+		set {
+			currentBuildingCreater = value;
 		}
 	}
 

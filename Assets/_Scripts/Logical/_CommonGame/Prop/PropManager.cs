@@ -132,7 +132,10 @@ namespace SuperHero.Logical
 			Init();
 		}
 
-
+		public void GetPrefabsFromFile()
+		{
+			return;
+		}
 
 
 	}

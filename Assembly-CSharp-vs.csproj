@@ -66,10 +66,12 @@
      <Compile Include="Assets\_Scripts\Logical\PropertyMaster.cs" />
      <Compile Include="Assets\_Scripts\Logical\TaskManager.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\BuildingCreater.cs" />
+     <Compile Include="Assets\_Scripts\Logical\_CommonGame\BuildingInfo.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\BuildingManager.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\CarInfo.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\CommonGameUI.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\InputControl.cs" />
+     <Compile Include="Assets\_Scripts\Logical\_CommonGame\PaPa.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\PlayerAnimationController.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\PlayerController.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\DestorySelf.cs" />
@@ -81,6 +83,7 @@
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\SpeedUp.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\PropCreater.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\PropPlay\GroupAttackPlay.cs" />
+     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\BuildingExit.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\reStartTrigger.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\roundTrigger.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\startTrigger.cs" />
