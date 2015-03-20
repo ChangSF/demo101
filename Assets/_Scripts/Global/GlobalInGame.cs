@@ -10,6 +10,8 @@ public class GlobalInGame
 	static BuildingManager currentBuildingManager=null;
 	static BuildingCreater currentBuildingCreater=null;
 
+	public static string buildLsit="";
+
 	public static PropManager CurrentPropManager {
 		get {
 			if(currentPropManager==null)

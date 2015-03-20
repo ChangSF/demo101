@@ -37,6 +37,7 @@ namespace SuperHero.Logical
 			if(PrefabBuildingIDs.ContainsKey(buildingID))
 			{
 				Queue<GameObject> buildingQueue=null;
+				//获取一个ID的队列
 				if(!BuildingQueues.ContainsKey(buildingID))
 				{
 					buildingQueue=new Queue<GameObject>();
@@ -46,13 +47,20 @@ namespace SuperHero.Logical
 				{
 					buildingQueue=BuildingQueues[buildingID];
 				}
+				//去除空的队首,
 				while(BuildingQueues[buildingID].Count>0&&BuildingQueues[buildingID].Peek()==null)
 				{
 					BuildingQueues[buildingID].Dequeue();
 				}
+				//初始化新的建筑物
 				if(BuildingQueues[buildingID].Count==0||BuildingQueues[buildingID].Peek().active==true)
 				{
 					building=(GameObject)Instantiate(PrefabBuildingIDs[buildingID]);
+					buildingQueue.Enqueue(building);
+				}
+				else//从队列种取出建筑物
+				{
+					building=buildingQueue.Dequeue();
 					buildingQueue.Enqueue(building);
 				}
 			}

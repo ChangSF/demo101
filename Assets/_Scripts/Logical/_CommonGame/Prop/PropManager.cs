@@ -47,7 +47,7 @@ namespace SuperHero.Logical
 				qq.Clear();
 			}
 			Props.Clear();
-			Debuger.Log("PropManager have Disposed!");
+			//Debuger.Log("PropManager have Disposed!");
 		}
 
 		/// <summary>
