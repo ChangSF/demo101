@@ -19,7 +19,7 @@ namespace SuperHero.Logical
 		/// <summary>
 		/// 当前触发的那个建筑的info
 		/// </summary>
-		private BuildingInfo currentBuildInfo=null;
+		public BuildingInfo currentBuildInfo=null;
 		public BuildingInfo startBuildInfo;
 
 		public GameObject buildPointGO;
@@ -78,14 +78,15 @@ namespace SuperHero.Logical
 		{
 			build.SetActive(true);
 			//更新构建的位置点
-			buildPoint=currentBuildInfo.gameObject.transform.TransformPoint( currentBuildInfo.OutCenter+info.InCenter);
-			//buildPoint+=( currentBuildInfo.OutCenter+info.InCenter);
+			//buildPoint=currentBuildInfo.gameObject.transform.TransformPoint( currentBuildInfo.OutCenter+info.InCenter);
+			buildPoint=buildPointGO.transform.TransformPoint( currentBuildInfo.OutCenter+info.InCenter);
 			build.transform.position=buildPoint;
 			buildPointGO.transform.position=buildPoint;
 			//更新建筑物方向,欧拉角
 			build.transform.eulerAngles=buildDirection;
 			buildDirection+=info.directionEuler;
-			
+			buildPointGO.transform.eulerAngles=buildDirection;
+
 			currentBuildInfo=info;
 			build.transform.parent=GlobalInGame.CurrentBuildingManager.gameObject.transform;
 			

@@ -5,7 +5,8 @@ namespace SuperHero.Logical
 	public class startTrigger : MonoBehaviour {
 		public Vector3 direction;
 		public Vector3 position;
-
+		public Vector3 defultDirection;
+		public Vector3 defultPosition;
 		private bool isEntered=false;
 		// Use this for initialization
 		void Start ()
@@ -23,6 +24,9 @@ namespace SuperHero.Logical
 		{
 			if(isEntered==false)
 			{
+				defultPosition=Vector3.zero;
+				position=transform.TransformPoint(defultPosition);
+				direction=defultDirection+transform.eulerAngles;
 				print ("collider:"+other.name);
 				PlayerController pc=other.transform.GetComponent<PlayerController>();
 				pc.ReStart(position,direction);
