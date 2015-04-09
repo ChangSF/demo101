@@ -44,11 +44,11 @@ namespace SuperHero.Logical
 		void Update () {
 			if (Input.GetMouseButtonDown(0) )
 			{
-				Debug.Log(EventSystem.current.gameObject.name);
-				if (EventSystem.current.IsPointerOverGameObject())
-					Debug.Log("当前触摸在UI上");
-				
-				else Debug.Log("当前没有触摸在UI上");
+				//Debug.Log(EventSystem.current.gameObject.name);
+//				if (EventSystem.current.IsPointerOverGameObject())
+//					Debug.Log("当前触摸在UI上");
+//				
+//				else Debug.Log("当前没有触摸在UI上");
 			}
 			if(isReceiveOP)
 			{

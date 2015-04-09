@@ -15,6 +15,11 @@ namespace SuperHero.Logical
 		public List<GameObject> prefabs;
 		public List<int > ids;
 
+		void Awake()
+		{
+			GlobalInGame.CurrentPropManager=this;
+		}
+
 		/// <summary>
 		/// 加载prefab，依据路径来，但是测试阶段使用2个list列表代替
 		/// </summary>
@@ -31,7 +36,7 @@ namespace SuperHero.Logical
 					//Debuger.Log(ids[i].ToString());
 				}
 			}
-			GlobalInGame.CurrentPropManager=this;
+
 		}
 
 

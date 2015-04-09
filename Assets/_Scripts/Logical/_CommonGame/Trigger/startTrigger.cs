@@ -11,7 +11,7 @@ namespace SuperHero.Logical
 		// Use this for initialization
 		void Start ()
 		{
-			position=transform.position;
+//			position=transform.position;
 		}
 		
 		// Update is called once per frame
@@ -22,6 +22,7 @@ namespace SuperHero.Logical
 
 		void OnTriggerEnter(Collider other)
 		{
+			position=transform.position;
 			if(isEntered==false)
 			{
 				defultPosition=Vector3.zero;
@@ -39,7 +40,7 @@ namespace SuperHero.Logical
 
 		IEnumerator EnableAgain()
 		{
-			yield return new WaitForSeconds(2);
+			yield return new WaitForSeconds(1f);
 			isEntered=false;
 			yield return true;
 		}

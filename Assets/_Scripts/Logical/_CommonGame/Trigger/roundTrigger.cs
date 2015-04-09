@@ -11,8 +11,7 @@ namespace SuperHero.Logical
 		private PlayerController pc;
 		void Start ()
 		{
-			if(centeraa)
-				center=centeraa.position;
+
 		}
 		
 
@@ -23,6 +22,8 @@ namespace SuperHero.Logical
 
 		void OnTriggerEnter(Collider other)
 		{
+			if(centeraa)
+				center=centeraa.position;
 			print ("roundCollider:"+other.name+" 开始进入圆形轨道");
 			PlayerController pc=other.transform.GetComponent<PlayerController>();
 			if(pc)

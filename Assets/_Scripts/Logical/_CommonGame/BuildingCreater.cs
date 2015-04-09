@@ -23,12 +23,17 @@ namespace SuperHero.Logical
 		public BuildingInfo startBuildInfo;
 
 		public GameObject buildPointGO;
+
+		void Awake()
+		{
+			GlobalInGame.CurrentBuildingCreater=this;
+		}
 		void Start()
 		{
 			buildPointGO=new GameObject("buildPointGO");
-			GlobalInGame.CurrentBuildingCreater=this;
+
 			currentBuildInfo=startBuildInfo;
-			for(int i=0;i<3;i++)
+			for(int i=0;i<4;i++)
 			{
 				CreateBuilding();
 			}
@@ -104,7 +109,7 @@ namespace SuperHero.Logical
 
 		void OnGUI()
 		{
-			GUILayout.Label(GlobalInGame.buildLsit);
+			//GUILayout.Label(GlobalInGame.buildLsit);
 		}
 	}
 }

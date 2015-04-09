@@ -19,11 +19,16 @@ namespace SuperHero.Logical
 		int [][] path;
 
 //		// Use this for initialization
-//		void Start ()
-//		{
-//
-//			Init();
-//		}
+		void Start ()
+		{
+			//print("prop Created!!!");
+			SetProp();
+		}
+
+		void OnEnable() {
+			//print("prop Created!!!");
+			SetProp();
+		}
 
 		void Init()
 		{

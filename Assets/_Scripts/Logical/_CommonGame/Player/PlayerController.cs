@@ -65,10 +65,12 @@ namespace SuperHero.Logical
 		/// <summary>
 		/// 当前场景的输入控制器
 		/// </summary>
-		private InputControl mIC;
+		[HideInInspector]
+		public InputControl mIC;
 		/// <summary>
 		/// 标记:是否处在切换轨道的过程中
 		/// </summary>
+		[HideInInspector]
 		private bool bIsChangeTrack=false;
 		/// <summary>
 		/// 本地相坐标的X偏移量，注：进度不包含Y轴
@@ -98,7 +100,10 @@ namespace SuperHero.Logical
 		/// 是否处在停留在空中的状态
 		/// </summary>
 		private bool mIsHover=false;
-
+		/// <summary>
+		/// The is pause.
+		/// </summary>
+		private bool isPause=false;
 
 
 		Vector3 [] mCC_Center=new Vector3[2];
@@ -106,9 +111,14 @@ namespace SuperHero.Logical
 
 		#endregion
 		#region Interface
+
+		void Awake()
+		{
+			GlobalInGame.currentPC=this;
+		}
 		// Use this for initialization
 		void Start () {
-			GlobalInGame.currentPC=this;
+
 			currentGameInfo.HP_Max=100f;
 			currentGameInfo.MP_Max=100f;
 			currentGameInfo.HP=100f;
@@ -151,53 +161,67 @@ namespace SuperHero.Logical
 
 		void OnControllerColliderHit(ControllerColliderHit hit)
 		{
-			if(hit.collider.transform.root.gameObject.layer!=9&&mRunMode==eRunMode.straight)
+			switch(hit.collider.transform.root.gameObject.layer)
 			{
+			case 9://Road
+				break;
+			case 10://Obstacle
 				GetHurt(hit.collider.GetComponent<CarInfo>().hurtPoint,hit);
+				break;
+			case 11://Monster
+				break;
+			default:
+				break;
 			}
 			
 		}
-
+		/// <summary>
+		/// 受到伤害时调用
+		/// </summary>
+		/// <param name="blood">Blood.</param>
+		/// <param name="hit">Hit.</param>
 		public void GetHurt(float blood,ControllerColliderHit hit)
 		{
-			//在直行道上面行走
-			if(mRunMode==eRunMode.straight)
-			{
-				if(bIsChangeTrack==true)
-				{
-					Debuger.Log("换轨中接触到障碍物:"+hit.collider.name+"  HP减少:"+blood.ToString());
-					mSurplusChangeTime=xChangTime-mSurplusChangeTime;
-					if(mEndPos-mStartPos>0f)//Right
-					{
-						mTrack--;
-					}
-					else//Left
-					{
-						mTrack++;
-					}
-					float temp=mEndPos;
-					mEndPos=mStartPos;
-					mStartPos=temp;
-					bIsChangeTrack=true;
-					
-					currentGameInfo.HP-=blood;
-				}
-				else
-				{
-					Debuger.Log("正面接触到障碍物:"+hit.collider.name+"  HP减少:"+blood.ToString());
-					currentGameInfo.HP-=blood;
-				}
-				Debuger.Log("Destoryed "+hit.collider.name);
-				Destroy( hit.collider.gameObject);
-				
-				if(currentGameInfo.HP<=0f)
-				{
-					Debuger.Log("Dead!!!!!");
-					currentGameInfo.HP=0f;
-				}
-				
-				
-			}
+			Destroy(hit.collider.gameObject);
+			GetHurt(blood);
+//			//在直行道上面行走
+//			if(mRunMode==eRunMode.straight)
+//			{
+//				if(bIsChangeTrack==true)
+//				{
+//					Debuger.Log("换轨中接触到障碍物:"+hit.collider.name+"  HP减少:"+blood.ToString());
+//					mSurplusChangeTime=xChangTime-mSurplusChangeTime;
+//					if(mEndPos-mStartPos>0f)//Right
+//					{
+//						mTrack--;
+//					}
+//					else//Left
+//					{
+//						mTrack++;
+//					}
+//					float temp=mEndPos;
+//					mEndPos=mStartPos;
+//					mStartPos=temp;
+//					bIsChangeTrack=true;
+//					
+//					currentGameInfo.HP-=blood;
+//				}
+//				else
+//				{
+//					Debuger.Log("正面接触到障碍物:"+hit.collider.name+"  HP减少:"+blood.ToString());
+//					currentGameInfo.HP-=blood;
+//				}
+//				Debuger.Log("Destoryed "+hit.collider.name);
+//				Destroy( hit.collider.gameObject);
+//				
+//				if(currentGameInfo.HP<=0f)
+//				{
+//					Debuger.Log("Dead!!!!!");
+//					currentGameInfo.HP=0f;
+//				}
+//				
+//				
+//			}
 		}
 		public void GetHurt(float blood)
 		{
@@ -238,29 +262,17 @@ namespace SuperHero.Logical
 		}
 		#endregion
 		#region OperationReflect
+		[HideInInspector]
 		private float mStartPos=0f;
+		[HideInInspector]
 		private float mEndPos=0f;
+		[HideInInspector]
 		private float mSurplusChangeTime=0f;
 		void TurnLeft()
 		{
 			if(mRunMode!=eRunMode.straight)
 				return;
-			if(mTrackNum==eTrackNum.Five)
-			{
-				if(mTrack!=eTrack.left&&!bIsChangeTrack)
-				{
-					mStartPos=((int)mTrack-3)*xTrackOffset;
-					mEndPos=((int)mTrack-4)*xTrackOffset;
-					mSurplusChangeTime=xChangTime;
-					mTrack--;
-					bIsChangeTrack=true;
-
-					if(mA)
-						//mA.SetTrigger("turnleft");
-						mA.Play("turnleft");
-				}
-			}
-			else if(mTrackNum==eTrackNum.Three)
+			if(mTrackNum==eTrackNum.Three)
 			{
 				if(mTrack!=eTrack.midLeft&&!bIsChangeTrack)
 				{
@@ -278,20 +290,8 @@ namespace SuperHero.Logical
 
 		void TurnRight()
 		{
-			if(mTrackNum==eTrackNum.Five)
-			{
-				if(mTrack!=eTrack.right&&!bIsChangeTrack)
-				{
-					mStartPos=((int)mTrack-3)*xTrackOffset;
-					mEndPos=((int)mTrack-2)*xTrackOffset;
-					mSurplusChangeTime=xChangTime;
-					mTrack++;
-					bIsChangeTrack=true;
-					if(mA)
-						mA.SetTrigger("turnright");
-				}
-			}
-			else if(mTrackNum==eTrackNum.Three)
+
+			if(mTrackNum==eTrackNum.Three)
 			{
 				if(mTrack!=eTrack.midRight&&!bIsChangeTrack)
 				{
@@ -307,7 +307,7 @@ namespace SuperHero.Logical
 		}
 
 
-		void Jump()
+		public void Jump()
 		{
 			if( mJumpState==eJumpState.NoneJump)
 			{
@@ -428,7 +428,8 @@ namespace SuperHero.Logical
 			transform.position=currentP;
 			mSurplusChangeTime=0f;
 		}
-		bool isPause=false;
+
+
 
 		public void Pause()
 		{
@@ -468,6 +469,26 @@ namespace SuperHero.Logical
 			radius=Vector3.Distance(center,transform.position);
 			mRunMode=eRunMode.roundLeft;
 		}
+
+		Vector3 targetDirection=new Vector3(90f,0f,0f);
+		float dirChangeTime=0.5f;
+		float dctime=0f;
+		public void Climb(Vector3 climbDirection)
+		{
+			mCC.enabled=false;
+			mIsHover=true;
+			targetDirection=climbDirection;
+			dctime=0f;
+			isPause=true;
+		}
+
+		public void ClimbEnd(Vector3 climbDirection)
+		{
+			mCC.enabled=true;
+			mIsHover=false;
+			isPause=false;
+		}
+
 
 		public void RegisterOP()
 		{
@@ -621,6 +642,8 @@ namespace SuperHero.Logical
 				transform.eulerAngles=new Vector3(0f,transform.eulerAngles.y,0f);
 				Debug.DrawLine(roundCenter,transform.position,Color.red);
 				break;
+			case eRunMode.climb:
+				break;
 			default:break;
 			}
 		}
@@ -647,6 +670,11 @@ namespace SuperHero.Logical
 				float x1=radius*Mathf.Cos(d1)-radius;
 				float h1=radius*Mathf.Sin(d1);
 				mCC.Move(transform.TransformDirection(new Vector3(x1,localYOffset,h1)));
+				break;
+			case eRunMode.climb:
+//				moveDirection=new Vector3(localXOffset,localYOffset,moveSpeed*Time.deltaTime);
+//				moveDirection= transform.TransformDirection(moveDirection);
+//				transform.position+=moveDirection;
 				break;
 			default :break;
 			}
@@ -689,6 +717,8 @@ namespace SuperHero.Logical
 			straight=1,
 			roundRight=2,
 			roundLeft=3,
+			climb=4,
+			fly=5,
 		}
 
 

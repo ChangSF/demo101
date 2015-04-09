@@ -12,7 +12,7 @@ public class BuildingExit : MonoBehaviour {
 	IEnumerator MyDisable()
 	{
 		yield return new WaitForSeconds(2f);
-		this.gameObject.transform.parent.gameObject.SetActive(false);
+		this.gameObject.transform.parent.parent.gameObject.SetActive(false);
 		yield return null;
 	}
 
