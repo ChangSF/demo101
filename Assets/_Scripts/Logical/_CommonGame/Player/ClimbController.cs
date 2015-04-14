@@ -1,21 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 namespace SuperHero.Logical
 {
 	/// <summary>
 	/// 攀爬控制器
+	/// 
+	/// 三个阶段:跳跃进入，攀爬，跳跃出
+	/// 进去有一个角度转换，禁用高度，不禁用人物控制器，修改人物控制器大小，适应人物高度，出爬墙的时候恢复
 	/// </summary>
 	public class ClimbController : MonoBehaviour 
 	{
 		#region feild
 
-
+		public eClimbMode mClimbMode=eClimbMode.StartClimb;
 
 		private PlayerController pc;
 		
-		
-		
+		private Tweener mTweener;
+
+		private bool isClimbing=false;
 		
 		#endregion
 		#region Interface 
@@ -43,11 +48,25 @@ namespace SuperHero.Logical
 		#endregion
 		#region Method
 
-		public void Climb(PlayerController pcc)
+		public void ClimbStart(PlayerController pcc)
 		{
 			pc=pcc;
 			pc.mIC.TurnLeft+=TurnLeft;
 			pc.mIC.TurnRight+=TurnRight;
+			isClimbing=false;
+			mClimbMode=eClimbMode.StartClimb;
+			mTweener=transform.DORotate(new Vector3(-90f,0f,0f),1f,RotateMode.LocalAxisAdd);
+			mTweener.SetEase(Ease.InOutBounce);
+			mTweener.OnComplete(Climbing);
+
+		}
+
+		public void Climbing()
+		{
+			print("Climbing");
+			mClimbMode=eClimbMode.Climbing;
+			isClimbing=true;
+
 		}
 
 		public void EndClimb()
@@ -55,6 +74,7 @@ namespace SuperHero.Logical
 			pc.mIC.TurnLeft-=TurnLeft;
 			pc.mIC.TurnRight-=TurnRight;
 			this.enabled=false;
+			isClimbing=true;
 		}
 
 		void TurnLeft()
@@ -150,14 +170,26 @@ namespace SuperHero.Logical
 		void UpdateRotate()
 		{
 
+
 		}
 		
 		void UpdatePositon()
 		{
-
+			if(isClimbing)
+			{
+				transform.Translate(new Vector3(localYOffset,GlobalInGame.currentPC.moveSpeed*Time.deltaTime,0f),Space.World);
+			}
 		}
 		
 		#endregion
-		
+
+
+		//三个阶段:跳跃进入，攀爬，跳跃出
+		public enum eClimbMode
+		{
+			StartClimb=0,
+			Climbing=1,
+			EndClimb=2,
+		}
 	}
 }

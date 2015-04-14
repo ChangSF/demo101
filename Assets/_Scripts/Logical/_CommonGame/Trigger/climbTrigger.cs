@@ -25,8 +25,8 @@ public class climbTrigger: MonoBehaviour
 
 	void OnTriggerEnter(Collider  other)
 	{
-		print(other.name);
-		GlobalInGame.currentPC.Climb(direction);
+		print(other.name+" climbing...");
+		GlobalInGame.currentPC.Climbing(new Vector3(-90f,0f,0f));
 
 	}
 }

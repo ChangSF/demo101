@@ -52,6 +52,10 @@ namespace SuperHero.Logical
 			}
 		}
 
+		private ClimbController currentClimbCtrl;
+
+		public ClimbController CurrentClimbCtrl {get ;set ;}
+
 		public Vector3 fallCenter;
 		public float fallHeight;
 		/// <summary>
@@ -124,6 +128,7 @@ namespace SuperHero.Logical
 			currentGameInfo.HP=100f;
 			currentGameInfo.MP=100f;
 
+			currentClimbCtrl=GetComponent<ClimbController>();
 			mCC=GetComponent<CharacterController>();
 			mA=GetComponent<Animator>();
 			mIC=GameObject.Find("InputController").GetComponent<InputControl>();
@@ -307,25 +312,29 @@ namespace SuperHero.Logical
 		}
 
 
-		public void Jump()
+		public void Jump(float ySpeed)
 		{
 			if( mJumpState==eJumpState.NoneJump)
 			{
-				mYSpeed=-10f;
+				mYSpeed=-ySpeed;
 				mJumpState=eJumpState.FirstJump;
 				mA.SetTrigger("jump");
 				mA.SetBool("land",false);
 			}
 			else if(mJumpState==eJumpState.FirstJump)
 			{
-				mYSpeed=-10f;
+				mYSpeed=-ySpeed;
 				mJumpState=eJumpState.DoubleJump;
 				mA.SetTrigger("jump");
 				mA.SetBool("land",false);
 			}
 		}
+		public void Jump()
+		{
+			Jump(10f);
+		}
 
-		 void Attack()
+		void Attack()
 		{
 			if(mA)
 				mA.SetTrigger("attack");
@@ -469,24 +478,32 @@ namespace SuperHero.Logical
 			radius=Vector3.Distance(center,transform.position);
 			mRunMode=eRunMode.roundLeft;
 		}
-
-		Vector3 targetDirection=new Vector3(90f,0f,0f);
-		float dirChangeTime=0.5f;
-		float dctime=0f;
-		public void Climb(Vector3 climbDirection)
+		/// <summary>
+		/// Ready to Climb
+		/// </summary>
+		public void ClimbStart(float ySpeed=20f)
 		{
-			mCC.enabled=false;
-			mIsHover=true;
-			targetDirection=climbDirection;
-			dctime=0f;
-			isPause=true;
+
+			CancelOP();
+			Jump(ySpeed);
+
 		}
 
-		public void ClimbEnd(Vector3 climbDirection)
+		public void Climbing(Vector3 climbDirection)
 		{
+			mCC.enabled=true;
+			mIsHover=true;
+			isPause=true;
+			currentClimbCtrl.ClimbStart(this);
+		}
+
+		public void ClimbEnd(Vector3 roadDirection)
+		{
+			currentClimbCtrl.EndClimb();
 			mCC.enabled=true;
 			mIsHover=false;
 			isPause=false;
+			RegisterOP();
 		}
 
 
