@@ -69,6 +69,7 @@ namespace SuperHero.Logical
 		public void CatapultEnd()
 		{
 			isCatapulting=false;
+
 		}
 
 

@@ -7,7 +7,7 @@ public class CatapultEndTrigger : MonoBehaviour {
 	{
 		if(other.tag=="Player")
 		{
-
+			GlobalInGame.currentPC.CatapultEnd();
 		}
 	}
 }
