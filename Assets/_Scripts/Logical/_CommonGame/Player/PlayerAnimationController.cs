@@ -8,14 +8,21 @@ namespace SuperHero.Logical
 
 	public class PlayerAnimationController : MonoBehaviour {
 
+		public float changeSpeed=15f;
 
 		private RuntimeAnimatorController controller;
 		private AntCallback animationEnd;
 		private Animator amtor;
 
-		private string lastclip="";
-		private string currentclip="";
-		List <AntCallback> callbackList=new List<AntCallback>();
+		public Animator Amtor {
+			get {
+				return amtor;
+			}
+			set {
+				amtor = value;
+			}
+		}
+
 		// Use this for initialization
 		void Start () {
 			OnEnable();
@@ -26,48 +33,112 @@ namespace SuperHero.Logical
 			amtor=gameObject.GetComponent<Animator>();
 			controller=amtor.runtimeAnimatorController;
 
-//			print ( controller.animationClips.Length);
 		}
 
 
 		// Update is called once per frame
 		void Update () 
 		{
-//			AnimatorStateInfo stateinfo = amtor.GetCurrentAnimatorStateInfo(0);
-//			currentclip= stateinfo.IsName("run").ToString();
-//
-//			print( stateinfo.shortNameHash);
-//			print(currentclip);
-//			if(lastclip!=currentclip&&animationEnd!=null)
-//			{
-//				animationEnd.Invoke();
-//				foreach(AntCallback aa in callbackList)
-//				{
-//					animationEnd-=aa;
-//				}
-//				callbackList.Clear();
-//			}
-//			if(Input.GetKeyDown(KeyCode.Space))
-//			{
-//				amtor.CrossFade("attack",0.3f);
-//				amtor.GetCurrentAnimatorStateInfo(0).shortNameHash
-//			}
+			if(GlobalInGame.currentPC!=null&&amtor!=null)
+			{
+				amtor.SetFloat("speed", GlobalInGame.currentPC.moveSpeed-changeSpeed);
+			}
 		}
 
-		public void PlayAnimationByName(string name,AntCallback callback)
+		public void TurnLeft()
 		{
-			amtor.CrossFade(name,0.3f);
-			AnimatorClipInfo[] infos= amtor.GetCurrentAnimatorClipInfo(0);
-			currentclip= infos[0].clip.name;
-			lastclip=currentclip;
-			animationEnd+=callback;
-			callbackList.Add(callback);
+			amtor.CrossFade("left shift",0.1f);
 		}
-
-		public void PlayAnimationById(int id,AntCallback callback)
+		public void TurnRight()
 		{
-
+			amtor.CrossFade("right shift",0.1f);
 		}
+		/// <summary>
+		/// End With FlyEnd()
+		/// </summary>
+		public void Fly()
+		{
+			amtor.CrossFade("glide",0.3f);
+			amtor.SetBool("fly",true);
+		}
+		public void FlyEnd()
+		{
+			amtor.CrossFade("squat",0.3f);
+			amtor.SetBool("fly",false);
+		}
+		public void FlyAttack()
+		{
+			amtor.CrossFade("fly attack",0.3f);
+		}
+		public void FlyHit()
+		{
+			amtor.CrossFade("fly hit",0.3f);
+		}
+		public void JumpA()
+		{
+			amtor.CrossFade("jump A",0.3f);
+		}
+		public void JumpB()
+		{
+			amtor.CrossFade("jump B",0.3f);
+		}
+		public void JumpTwo()
+		{
+			amtor.CrossFade("two jump",0.3f);
+		}
+		public void BeingAttacked()
+		{
+			amtor.CrossFade("being attacked",0.3f);
+		}
+		public void Attack()
+		{
+			amtor.CrossFade("attack",0.3f);
+		}
+		public void AttackTwo()
+		{
+			amtor.CrossFade("two attack",0.3f);
+		}
+		public void FailDown()
+		{
+			Shovel();
+		}
+		public void Shovel()
+		{
+			amtor.CrossFade("shovel",0.3f);
+		}
+		public void WallRight()
+		{
+			amtor.CrossFade("fly over the wall_right",0.3f);
+		}
+		public void WallLeft()
+		{
+			amtor.CrossFade("fly over the wall_left",0.3f);
+		}
+		public void RunA()
+		{
+			amtor.CrossFade("run A",0.3f);
+		}
+		public void RunB()
+		{
+			amtor.CrossFade("run B",0.3f);
+		}
+		public void Idle()
+		{
+			amtor.CrossFade("idle",0.3f);
+		}
+		public void Stand()
+		{
+			Idle();
+		}
+		public void StandTwo()
+		{
+			amtor.CrossFade("standby 2",0.3f);
+		}
+		public void Dead()
+		{
+			amtor.CrossFade("death",0.3f);
+		}
+
 
 	}
 }

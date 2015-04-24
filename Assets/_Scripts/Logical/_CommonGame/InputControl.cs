@@ -81,21 +81,21 @@ namespace SuperHero.Logical
 					JumpOP.Invoke();
 				}
 			}
-			if(Input.GetKey(KeyCode.DownArrow))
+			if(Input.GetKeyDown(KeyCode.DownArrow))
 			{
 				if(FallDownOP!=null)
 				{
 					FallDownOP.Invoke();
 				}
 			}
-			if(Input.GetKey(KeyCode.LeftArrow))
+			if(Input.GetKeyDown(KeyCode.LeftArrow))
 			{
 				if(TurnLeft!=null)
 				{
 					TurnLeft.Invoke();
 				}
 			}
-			if(Input.GetKey(KeyCode.RightArrow))
+			if(Input.GetKeyDown(KeyCode.RightArrow))
 			{
 				if(TurnRight!=null)
 				{

@@ -1,0 +1,93 @@
+fileFormatVersion: 2
+guid: c94aeadada6140f448c179c44a4b49f9
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: PK_model_air conditioner_05
+    100002: //RootNode
+    100004: PK_model_house_05_02
+    100006: PK_model_air conditioner_06
+    100008: PK_model_house_05_01
+    100010: PK_model_house_05_03
+    400000: PK_model_air conditioner_05
+    400002: //RootNode
+    400004: PK_model_house_05_02
+    400006: PK_model_air conditioner_06
+    400008: PK_model_house_05_01
+    400010: PK_model_house_05_03
+    2300000: PK_model_air conditioner_05
+    2300002: PK_model_house_05_02
+    2300004: PK_model_air conditioner_06
+    2300006: PK_model_house_05_01
+    2300008: PK_model_house_05_03
+    2300010: //RootNode
+    3300000: PK_model_air conditioner_05
+    3300002: PK_model_house_05_02
+    3300004: PK_model_air conditioner_06
+    3300006: PK_model_house_05_01
+    3300008: PK_model_house_05_03
+    3300010: //RootNode
+    4300000: PK_model_air conditioner_05
+    4300002: PK_model_house_05_02
+    4300004: PK_model_air conditioner_06
+    4300006: PK_model_house_05_01
+    4300008: PK_model_house_05_03
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

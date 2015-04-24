@@ -11,6 +11,14 @@ public class TestInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetKeyDown(KeyCode.LeftArrow))
+		{
+			ant.CrossFade("fly over the wall left",.3f);
+		}
+		if(Input.GetKeyDown(KeyCode.RightArrow))
+		{
+			ant.CrossFade("fly over the wall_right",.3f);
+		}
 
 	}
 	string speed="20";
@@ -27,6 +35,7 @@ public class TestInput : MonoBehaviour {
 		{
 			ant.CrossFade("attack",0.3f,0);
 		}
+
 
 
 		if(GUILayout.Button("Fly"))

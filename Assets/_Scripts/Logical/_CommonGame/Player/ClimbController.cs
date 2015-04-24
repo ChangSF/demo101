@@ -21,7 +21,8 @@ namespace SuperHero.Logical
 		private Tweener mTweener;
 
 		private bool isClimbing=false;
-		
+
+		private Animator mA;
 		#endregion
 		#region Interface 
 		void Start ()
@@ -33,30 +34,39 @@ namespace SuperHero.Logical
 		/// </summary>
 		void OnEnable()
 		{
-			
+			mA=GetComponent<Animator>();
 		}
 		
 		// Update is called once per frame
 		void Update () 
 		{
 			UpdateOffest();
-			UpdateHeight();
-			UpdateRotate();
 			UpdatePositon();
 
 		}
+
+//		void OnGUI()
+//		{
+//			if(pc!=null)
+//				GUILayout.Label(pc.mTrack.ToString());
+//			else
+//				GUILayout.Label("");
+//			GUILayout.Label(bIsChangeTrack.ToString());
+//			GUILayout.Label(localXOffset.ToString());
+//
+//		}
 		#endregion
 		#region Method
 
 		public void ClimbStart(PlayerController pcc)
 		{
 			pc=pcc;
-			pc.mIC.TurnLeft+=TurnLeft;
-			pc.mIC.TurnRight+=TurnRight;
+
+
 			isClimbing=false;
 			mClimbMode=eClimbMode.StartClimb;
-			mTweener=transform.DORotate(new Vector3(-90f,0f,0f),1f,RotateMode.LocalAxisAdd);
-			mTweener.SetEase(Ease.InOutBounce);
+			mTweener=transform.DORotate(new Vector3(-90f,0f,0f),0.5f,RotateMode.LocalAxisAdd);
+			mTweener.SetEase(Ease.Linear);
 			mTweener.OnComplete(Climbing);
 
 		}
@@ -66,52 +76,52 @@ namespace SuperHero.Logical
 			print("Climbing");
 			mClimbMode=eClimbMode.Climbing;
 			isClimbing=true;
-
+			pc.mIC.TurnLeft+=TurnLeft;
+			pc.mIC.TurnRight+=TurnRight;
+			this.enabled=true;
 		}
 
-		public void EndClimb()
+		public void EndClimb(Vector3 roadDirection)
 		{
 			pc.mIC.TurnLeft-=TurnLeft;
 			pc.mIC.TurnRight-=TurnRight;
 			this.enabled=false;
-			isClimbing=true;
+			isClimbing=false;
+			mClimbMode=eClimbMode.EndClimb;
 		}
 
 		void TurnLeft()
 		{
-			if(pc.mRunMode!=PlayerController.eRunMode.straight)
-				return;
-			if(pc.mTrackNum==PlayerController.eTrackNum.Three)
+//			if(pc.mRunMode!=PlayerController.eRunMode.climb)
+//				return;
+
+			if(pc.mTrack!=PlayerController.eTrack.midLeft&&!bIsChangeTrack)
 			{
-				if(pc.mTrack!=PlayerController.eTrack.midLeft&&!bIsChangeTrack)
-				{
-					mStartPos=((int)pc.mTrack-3)*pc.xTrackOffset;
-					mEndPos=((int)pc.mTrack-4)*pc.xTrackOffset;
-					mSurplusChangeTime=xChangTime;
-					pc.mTrack--;
-					bIsChangeTrack=true;
-//					if(pc.mA)
-//						//mA.SetTrigger("turnleft");
-//						pc.mA.Play("turnleft");
-				}
+				mStartPos=((int)pc.mTrack-3)*pc.xTrackOffset;
+				mEndPos=((int)pc.mTrack-4)*pc.xTrackOffset;
+				mSurplusChangeTime=xChangTime;
+				pc.mTrack--;
+				bIsChangeTrack=true;
+				if(mA)
+					//mA.SetTrigger("turnleft");
+					mA.Play("turnleft");
+				print("left");
 			}
 		}
 		
 		void TurnRight()
 		{
-			
-			if(pc.mTrackNum==PlayerController.eTrackNum.Three)
+
+			if(pc.mTrack!=PlayerController.eTrack.midRight&&!bIsChangeTrack)
 			{
-				if(pc.mTrack!=PlayerController.eTrack.midRight&&!bIsChangeTrack)
-				{
-					mStartPos=((int)pc.mTrack-3)*pc.xTrackOffset;
-					mEndPos=((int)pc.mTrack-2)*pc.xTrackOffset;
-					mSurplusChangeTime=xChangTime;
-					pc.mTrack++;
-					bIsChangeTrack=true;
-//					if(pc.mA)
-//						pc.mA.SetTrigger("turnright");
-				}
+				mStartPos=((int)pc.mTrack-3)*pc.xTrackOffset;
+				mEndPos=((int)pc.mTrack-2)*pc.xTrackOffset;
+				mSurplusChangeTime=xChangTime;
+				pc.mTrack++;
+				bIsChangeTrack=true;
+				if(mA)
+					mA.Play("turnright");
+				print("right");
 			}
 		}
 
@@ -122,7 +132,7 @@ namespace SuperHero.Logical
 		float localXOffset=0f;
 		bool bIsChangeTrack=false;
 		float mSurplusChangeTime=0f;
-		float xChangTime=0f;
+		float xChangTime=0.5f;
 		float mEndPos=0f;
 		float mStartPos=0f;
 		/// <summary>
@@ -156,28 +166,12 @@ namespace SuperHero.Logical
 				localXOffset=0f;
 			}
 		}
-		float localYOffset=0f;
-		bool isCanLand=true;
-		/// <summary>
-		/// 更新高度    墙上面是否跑？
-		/// </summary>
-		void UpdateHeight()
-		{
-
-			
-		}
-
-		void UpdateRotate()
-		{
-
-
-		}
-		
 		void UpdatePositon()
 		{
 			if(isClimbing)
 			{
-				transform.Translate(new Vector3(localYOffset,GlobalInGame.currentPC.moveSpeed*Time.deltaTime,0f),Space.World);
+
+				transform.Translate(new Vector3(localXOffset,GlobalInGame.currentPC.moveSpeed*Time.deltaTime,0f),Space.World);
 			}
 		}
 		

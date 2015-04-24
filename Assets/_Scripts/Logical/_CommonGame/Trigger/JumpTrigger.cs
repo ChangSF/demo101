@@ -1,18 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-public class JumpTrigger : MonoBehaviour 
+using DG.Tweening;
+namespace SuperHero.Logical
 {
-
-	public float ySpeed=20f;
-
-
-	void OnTriggerEnter(Collider  other)
+	public class JumpTrigger : MonoBehaviour 
 	{
-		if(other.gameObject.tag=="Player")
+		
+		public float ySpeed=20f;
+		
+		
+		void OnTriggerEnter(Collider  other)
 		{
-			GlobalInGame.currentPC.ClimbStart(ySpeed);
-			//GlobalInGame.currentPC.ClimbStart();
+			if(other.gameObject.tag=="Player")
+			{
+				GlobalInGame.currentPC.ClimbStart(ySpeed);
+				//GlobalInGame.currentPC.ClimbStart();
+
+			}
 		}
 	}
 }
