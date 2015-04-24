@@ -18,6 +18,7 @@ namespace SuperHero.Logical
 		private float totalTime;
 
 		bool isCatapulting=false;
+		bool isLand=false;
 		// Use this for initialization
 		void Start () 
 		{
@@ -33,12 +34,19 @@ namespace SuperHero.Logical
 				if(totalTime<changeTime)
 				{
 					float percentage=totalTime/changeTime;
-					transform.position=startPos+new Vector3(Xgap*percentage,ySpeed*totalTime-0.5f*gravity*totalTime*totalTime,Zgap*percentage);
+					transform.position=startPos+new Vector3(Xgap*percentage,Ygap*percentage+ySpeed*totalTime-0.5f*gravity*totalTime*totalTime,Zgap*percentage);
 				}
 				else
 				{
 					isCatapulting=false;
 				}
+			}
+			else if(isLand==true)
+			{
+				PlayerController pc=GlobalInGame.currentPC;
+				pc.RegisterOP();
+				GlobalInGame.currentPC.mRunMode= PlayerController.eRunMode.straight;
+				isLand=false;
 			}
 		}
 
@@ -46,7 +54,8 @@ namespace SuperHero.Logical
 		{
 			PlayerController pc=GlobalInGame.currentPC;
 			pc.CancelOP();
-			if(pc.mJumpState==PlayerController.eJumpState.NoneJump)
+
+			if(pc.mJumpState!=PlayerController.eJumpState.NoneJump)
 			{
 				pc.mFallDown= PlayerController.eFallDown.doubleGravity;
 			}
@@ -54,22 +63,47 @@ namespace SuperHero.Logical
 
 		public void Catapulting(Vector3 start,Vector3 target,float gravity,float ySpeed)
 		{
+			PlayerController pc= GlobalInGame.currentPC;
+			float startXPosition=0f;
+			switch(pc.mTrack)
+			{
+			case PlayerController.eTrack.left:
+				startXPosition=-2f*pc.xTrackOffset;
+				break;
+			case PlayerController.eTrack.midLeft:
+				startXPosition=-pc.xTrackOffset;
+				break;
+			case PlayerController.eTrack.middle:
+				startXPosition=0f;
+				break;
+			case PlayerController.eTrack.midRight:
+				startXPosition=pc.xTrackOffset;
+				break;
+			case PlayerController.eTrack.right:
+				startXPosition=2f*pc.xTrackOffset;
+				break;
+			default:break;
+			}
 			this.startPos=start;
-			this.targetPos=target;
+			this.targetPos=new Vector3( target.x+startXPosition,target.y,target.z);
 			this.gravity=gravity;
 			this.ySpeed=ySpeed;
-			Xgap=target.x-start.x;
-			Ygap=target.y-start.y;
-			Zgap=target.z-start.z;
+			Xgap=targetPos.x-start.x;
+			Ygap=targetPos.y-start.y;
+			Zgap=targetPos.z-start.z;
 			changeTime=ySpeed*2f/gravity;
 			totalTime=0f;
 			isCatapulting=true;
+			isLand=false;
+			GlobalInGame.currentPC.mRunMode= PlayerController.eRunMode.changeRoad;
 		}
 
 		public void CatapultEnd()
 		{
-			isCatapulting=false;
+//			isCatapulting=false;
+			isLand=true;
 
+			
 		}
 
 

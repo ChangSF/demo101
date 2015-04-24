@@ -81,6 +81,7 @@
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\CameraFollw.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\CarInfo.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\CommonGameUI.cs" />
+     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Dead.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\InputControl.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Player\CatapultController.cs" />
      <Compile Include="Assets\_Scripts\Logical\_CommonGame\Player\ClimbController.cs" />

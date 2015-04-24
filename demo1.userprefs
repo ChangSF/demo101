@@ -1,24 +1,27 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/_Scripts/Logical/_CommonGame/Trigger/CatapultTrigger.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/_Scripts/Logical/_CommonGame/Player/PlayerController.cs">
     <Files>
-      <File FileName="Assets/_Scripts/Logical/_CommonGame/Player/FlyController.cs" Line="13" Column="3" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Player/FlyController.cs" Line="72" Column="4" />
       <File FileName="Assets/_Scripts/Logical/_CommonGame/Player/ClimbController.cs" Line="1" Column="1" />
       <File FileName="Assets/_Scripts/Logical/_CommonGame/Trigger/JumpTrigger.cs" Line="1" Column="1" />
-      <File FileName="Assets/_Scripts/Logical/_CommonGame/CameraFollw.cs" Line="1" Column="1" />
-      <File FileName="Assets/_Scripts/Logical/_CommonGame/Trigger/climbTrigger.cs" Line="1" Column="1" />
-      <File FileName="Assets/_Scripts/Logical/_CommonGame/Player/PlayerController.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Player/PlayerController.cs" Line="528" Column="11" />
       <File FileName="Assets/_Scripts/Logical/_CommonGame/Trigger/flyStartTrigger.cs" Line="1" Column="1" />
       <File FileName="Assets/_Scripts/Logical/_CommonGame/Prop/DestorySelf.cs" Line="1" Column="1" />
-      <File FileName="Assets/_Scripts/Logical/_CommonGame/Trigger/CatapultTrigger.cs" Line="12" Column="39" />
-      <File FileName="Assets/_Scripts/Logical/_CommonGame/Player/CatapultController.cs" Line="13" Column="22" />
-      <File FileName="Assets/_Scripts/Logical/_CommonGame/Trigger/CatapultEndTrigger.cs" Line="10" Column="4" />
-      <File FileName="Assets/_Scripts/Logical/_CommonGame/Trigger/reStartTrigger.cs" Line="18" Column="5" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Trigger/CatapultTrigger.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Player/CatapultController.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Trigger/CatapultEndTrigger.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Trigger/climbEndTrigger.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Trigger/reStartTrigger.cs" Line="19" Column="10" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Player/PlayerAnimationController.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/InputControl.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Dead.cs" Line="13" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/chang/Unity3D/demo1/Assets/_Scripts/Logical/_CommonGame/Player/PlayerController.cs" line="364" />
+      <Breakpoint enabled="false" file="/Users/chang/Unity3D/demo1/Assets/_Scripts/Logical/_CommonGame/Player/PlayerController.cs" line="364" />
+      <Breakpoint file="/Users/chang/Unity3D/demo1/Assets/_Scripts/Logical/_CommonGame/InputControl.cs" line="88" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

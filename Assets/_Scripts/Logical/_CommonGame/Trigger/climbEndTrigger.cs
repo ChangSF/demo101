@@ -13,7 +13,7 @@ namespace SuperHero.Logical
 			{
 				Tweener twewner=other.transform.DOLocalRotate(roadDirection,.5f,RotateMode.Fast);
 				twewner.OnComplete(End);
-				GlobalInGame.currentPC.Jump(10f);
+				GlobalInGame.currentPC.Jump(5f);
 
 
 			}

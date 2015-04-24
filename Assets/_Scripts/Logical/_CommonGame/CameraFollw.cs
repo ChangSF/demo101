@@ -17,9 +17,5 @@ public class CameraFollw : MonoBehaviour {
 		transform.position=target.position+cameraOffset;
 		transform.LookAt(target);
 	}
-
-	void OnGUI()
-	{
-
-	}
+	
 }

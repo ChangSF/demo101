@@ -59,8 +59,14 @@ namespace SuperHero.Logical
 		public void Fly()
 		{
 			amtor.CrossFade("glide",0.3f);
+			Debug.Log("fly");
 			amtor.SetBool("fly",true);
 		}
+		public void FlyJump()
+		{
+			amtor.CrossFade("jump B 0",0.3f);
+		}
+
 		public void FlyEnd()
 		{
 			amtor.CrossFade("squat",0.3f);

@@ -13,7 +13,8 @@ namespace SuperHero.Logical
 		{
 			if(other.tag=="Player")
 			{
-				GlobalInGame.currentPC.CurrentCatapultCtrl.Catapulting(transform.position,endTrigger.transform.position,gravity,ySpeed);
+				//GlobalInGame.currentPC.CurrentCatapultCtrl.Catapulting(transform.position,endTrigger.transform.position,gravity,ySpeed);
+				GlobalInGame.currentPC.CurrentCatapultCtrl.Catapulting(other.transform.position,endTrigger.transform.position,gravity,ySpeed);
 			}
 		}
 

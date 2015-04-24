@@ -205,11 +205,11 @@ namespace SuperHero.Logical
 
 		}
 
-//		void OnGUI()
-//		{
-//			GUILayout.Label(mJumpState.ToString());
-//			GUILayout.Label(mYSpeed.ToString());
-//		}
+		void OnGUI()
+		{
+			GUILayout.Label(mJumpState.ToString());
+			GUILayout.Label(mYSpeed.ToString());
+		}
 
 
 		void OnControllerColliderHit(ControllerColliderHit hit)
@@ -446,6 +446,10 @@ namespace SuperHero.Logical
 					StartCoroutine(mCCFallDown());
 					currentAntorCtrl.Shovel();
 				}
+				else if(mJumpState!= eJumpState.NoneJump)
+				{
+					mFallDown= eFallDown.doubleGravity;
+				}
 			}
 		}
 
@@ -457,6 +461,14 @@ namespace SuperHero.Logical
 			mCC.height=mCC_Height[0];
 			mCC.center= mCC_Center[0];
 			yield return null;
+		}
+
+		public void Dead()
+		{
+			mIsHover=true;
+			isPause=true;
+			mRunMode=eRunMode.dead;
+			currentAntorCtrl.Dead();
 		}
 
 		#endregion
@@ -498,9 +510,10 @@ namespace SuperHero.Logical
 
 
 
-
 		public void ReStart(Vector3 startPosition,Vector3 startDirection)
 		{
+			mIsHover=false;
+			isPause=false;
 			mRunMode=eRunMode.straight;
 			transform.eulerAngles=startDirection;
 			mDirection=startDirection;
@@ -641,11 +654,16 @@ namespace SuperHero.Logical
 			if(mCC!=null&&mIC!=null)//注册委托
 			{
 				Debug.Log("RegisterOP");
-				mIC.TurnLeft+=TurnLeft;
-				mIC.TurnRight+=TurnRight;
-				mIC.JumpOP+=Jump;
-				mIC.FallDownOP+=FallDown;
-				mIC.Attack+=Attack;
+				if(mIC.TurnLeft==null)
+					mIC.TurnLeft+=TurnLeft;
+				if(mIC.TurnRight==null)
+					mIC.TurnRight+=TurnRight;
+				if(mIC.JumpOP==null)
+					mIC.JumpOP+=Jump;
+				if(mIC.FallDownOP==null)
+					mIC.FallDownOP+=FallDown;
+				if(mIC.Attack==null)
+					mIC.Attack+=Attack;
 			}
 		}
 		public void CancelOP()
@@ -858,6 +876,7 @@ namespace SuperHero.Logical
 			climb=4,
 			fly=5,
 			changeRoad=6,
+			dead=7,
 		}
 
 		public enum eAttackStage

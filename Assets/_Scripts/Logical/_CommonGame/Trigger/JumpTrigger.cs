@@ -7,15 +7,16 @@ namespace SuperHero.Logical
 	{
 		
 		public float ySpeed=20f;
-		
+		public bool cancelOP=true;
 		
 		void OnTriggerEnter(Collider  other)
 		{
 			if(other.gameObject.tag=="Player")
 			{
-				GlobalInGame.currentPC.ClimbStart(ySpeed);
-				//GlobalInGame.currentPC.ClimbStart();
-
+				if(cancelOP)
+					GlobalInGame.currentPC.ClimbStart(ySpeed);
+				else
+					GlobalInGame.currentPC.Jump(ySpeed);
 			}
 		}
 	}

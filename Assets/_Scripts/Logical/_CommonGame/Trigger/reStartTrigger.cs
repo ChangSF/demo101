@@ -5,6 +5,7 @@ namespace SuperHero.Logical
 	public class reStartTrigger : MonoBehaviour {
 		public Vector3 direction;
 		public Vector3 position;
+		public bool useLocal=false;
 		private bool isEntered=false;
 		void OnTriggerEnter(Collider other)
 		{
@@ -12,7 +13,10 @@ namespace SuperHero.Logical
 			{
 				print ("reStart-> collider:"+other.name);
 				PlayerController pc=other.transform.GetComponent<PlayerController>();
-				pc.ReStart(position,direction);
+				if(useLocal)
+					pc.ReStart(transform.position,direction);
+				else
+					pc.ReStart(position,direction);
 				//pc.RegisterOP();
 				StartCoroutine(EnableAgain());
 				

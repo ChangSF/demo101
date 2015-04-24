@@ -59,7 +59,7 @@ namespace SuperHero.Logical
 			pc.mIC.TurnLeft+=TurnLeft;
 			pc.mIC.TurnRight+=TurnRight;
 			this.enabled=true;
-
+			GlobalInGame.currentPC.CurrentAntorCtrl.Fly();
 
 		}
 		public void StartFly(PlayerController pcc, float ySpeed,float gravity=5f)
@@ -75,7 +75,7 @@ namespace SuperHero.Logical
 		public void ContinueFly(float ySpeed)
 		{
 			this.ySpeed=ySpeed;
-
+			GlobalInGame.currentPC.CurrentAntorCtrl.FlyJump();
 		}
 
 		public void EndFly()
@@ -87,6 +87,7 @@ namespace SuperHero.Logical
 			this.enabled=false;
 			isFlying=false;
 			mFlyMode=eFlyMode.EndFly;
+			GlobalInGame.currentPC.CurrentAntorCtrl.FlyEnd();
 		}
 
 		void Init()
@@ -170,7 +171,7 @@ namespace SuperHero.Logical
 				pc.mTrack--;
 				bIsChangeTrack=true;
 
-				print("left");
+				print(pc.mTrack.ToString());
 			}
 		}
 		
@@ -184,7 +185,7 @@ namespace SuperHero.Logical
 				pc.mTrack++;
 				bIsChangeTrack=true;
 
-				print("right");
+				print(pc.mTrack.ToString());
 			}
 		}
 
