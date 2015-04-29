@@ -4,16 +4,16 @@ using System.Collections;
 public class DestorySelf : MonoBehaviour {
 	public float degree=90f;
 	// Use this for initialization
-	void Start () {
+	protected void Start () {
 	
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected void Update () {
 		transform.Rotate(new Vector3(0f,degree*Time.deltaTime,0f));
 	}
 
-	void OnTriggerEnter()
+	protected void OnTriggerEnter()
 	{
 		this.gameObject.SetActive(false);
 	}

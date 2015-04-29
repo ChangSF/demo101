@@ -4,7 +4,7 @@ using System.Collections;
 namespace SuperHero.Logical
 {
 	public class CarInfo : MonoBehaviour {
-		public float hurtPoint=5f;
+		public int hurtPoint=5;
 		public eCarMode mCarMode=eCarMode.STATIC;
 		public bool isRunning=true;
 		public float speed=5f;

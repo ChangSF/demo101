@@ -45,6 +45,7 @@ namespace SuperHero.Logical
 			{
 				PlayerController pc=GlobalInGame.currentPC;
 				pc.RegisterOP();
+				transform.position=targetPos;
 				GlobalInGame.currentPC.mRunMode= PlayerController.eRunMode.straight;
 				isLand=false;
 			}

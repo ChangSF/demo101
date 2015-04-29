@@ -5,8 +5,9 @@ using SuperHero.Entity;
 namespace SuperHero.Logical
 {
 	/// <summary>
-	/// 道具效果实现类
+	/// 道具效果实现类 先附加PlayerController脚本
 	/// </summary>
+	[RequireComponent(typeof(PlayerController))]
 	public class PropertyMaster : MonoBehaviour
 	{
 		public float originalMoveSpeed;
@@ -19,7 +20,9 @@ namespace SuperHero.Logical
 		
 		private eSpeedMode mSpeedMode=eSpeedMode.normal;
 		private PlayerController pc;
-
+		
+		public GameObject GoldSE;
+		
 		void Start () 
 		{
 			GlobalInGame.currentPM=this;
@@ -31,46 +34,115 @@ namespace SuperHero.Logical
 			originalMoveSpeed=pc.moveSpeed;
 			
 		}
+		
+		void Update()
+		{
+			if(Input.GetKeyDown(KeyCode.A))
+			{
+				
+				
+				//				ps.Play();
+			}
+		}
+		
+		void OnControllerColliderHit(ControllerColliderHit hit)
+		{
 
+			switch(hit.collider.transform.gameObject.layer)
+			{
+			case 9://Road路面
+				//Debug.Log("road");
+				break;
+			case 10://Obstacle障碍物
+				//Debug.Log(hit.collider.GetComponent<CarInfo>().hurtPoint.ToString());
+				pc.GetHurt(hit.collider.GetComponent<CarInfo>().hurtPoint,hit,false);
+				break;
+			case 11://Monster怪物
+				
+				break;
+			case 12://Prop道具
+				PropInfo currentProp=hit.transform.GetComponent<PropInfo>();
+				SwitchProp(currentProp);
+				break;
+			default:
+				//Debug.Log(hit.transform.gameObject.layer.ToString());
+				break;
+			}
+			
+		}
+		
+		
+		
+		
+		
+		void SwitchProp(PropInfo prop)
+		{
+			switch(prop.AttackMode)
+			{
+				
+			}
+		}
+		
 		public void GetProp(PropInfo prop)
 		{
 			switch(prop.AttackMode)
 			{
-			case eAttackMode.GroupAttack:
+			case ePropType.GroupAttack:
+				
 				break;
-			case eAttackMode.GroupAttract:
+			case ePropType.GroupAttract:
+				
 				break;
-			case eAttackMode.SingleAchieve:
+			case ePropType.SingleAchieve:
+				
 				break;
-			case eAttackMode.SingleAttack:
+			case ePropType.SingleAttack:
+				
 				break;
-			case eAttackMode.SingleRecover:
+			case ePropType.SingleRecover:
+				GlobalInGame.currentPC.CurrentGameInfo.HP+=prop.Blood;
+				
 				break;
-			case eAttackMode.SingleSpeedUp:
+			case ePropType.SingleSpeedUp:
 				SpeedUp(prop.FlySpeed,prop.FlyTime);
+				break;
+			case ePropType.GoldIcon:
+				GlobalInGame.currentPC.CurrentGameInfo.goldCions++;
+//				Debug.Log(GlobalInGame.currentPC.CurrentGameInfo.goldCions.ToString());
+				GoldIN();
 				break;
 			default:
 				break;
 			}
 		}
-
+		
+		
+		public void GoldIN()
+		{
+			GameObject go=(GameObject)Instantiate(GoldSE);
+			go.transform.parent=transform;
+			go.transform.localPosition=new Vector3(0f,0.73f,0f);
+			ParticleSystem ps=go.GetComponent<ParticleSystem>();
+		}
+		
+		
 		#region 群体攻击效果
-
+		
 		public void GroupAttack(PropInfo ga)
 		{
-
+			
 		}
-
-
+		
+		
 		public void GroupAttackPlay(PropInfo ga)
 		{
-
+			
 		}
-
-
-
+		
+		
+		
 		#endregion
-
+		
 		#region 单体攻击效果
 		
 		
@@ -78,22 +150,22 @@ namespace SuperHero.Logical
 		
 		
 		#endregion
-
+		
 		#region 回血效果
-		public void AddBlood(float addBlood)
+		public void AddBlood(int addBlood)
 		{
 			pc.CurrentGameInfo.HP+=addBlood;
 			if(pc.CurrentGameInfo.HP>pc.CurrentGameInfo.HP_Max)
 				pc.CurrentGameInfo.HP=pc.CurrentGameInfo.HP_Max;
 		}
-
-
+		
+		
 		#endregion
-
+		
 		#region 加速效果
-	
-
-
+		
+		
+		
 		/// <summary>
 		/// 加速跑
 		/// </summary>
@@ -173,13 +245,13 @@ namespace SuperHero.Logical
 					break;
 				}
 				yield return null;
-
+				
 			}
 			yield return null;
 			
 		}
-
-
+		
+		
 		private enum eSpeedMode
 		{
 			speedUp=0,
@@ -188,5 +260,8 @@ namespace SuperHero.Logical
 			normal=3,
 		}
 		#endregion
+		
+		
+		
 	}
 }

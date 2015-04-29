@@ -22,14 +22,14 @@ namespace SuperHero.Logical
 		/// 重力大小，下落时为双倍重力
 		/// </summary>
 		public float gravity=9.8f;
-
+		
 		public float jumpSpeed=10f;
 		/// <summary>
 		/// 前进的速度
 		/// </summary>
 		public float moveSpeed=10f;
-
-
+		
+		
 		/// <summary>
 		/// 前进方向的方向向量.注：需要单位向量化
 		/// </summary>
@@ -38,11 +38,11 @@ namespace SuperHero.Logical
 		/// 相对于路标点的位移
 		/// </summary>
 		public Vector3 mRoadOffset=Vector3.zero;
-
+		
 		public eRunMode mRunMode=eRunMode.straight;
-
+		
 		private CurrentGameInfo currentGameInfo=new CurrentGameInfo ();
-
+		
 		public CurrentGameInfo CurrentGameInfo {
 			get 
 			{
@@ -53,11 +53,11 @@ namespace SuperHero.Logical
 				currentGameInfo = value;
 			}
 		}
-
+		
 		public CatapultController CurrentCatapultCtrl{get;set;}
-
+		
 		private PlayerAnimationController currentAntorCtrl;
-
+		
 		public PlayerAnimationController CurrentAntorCtrl {
 			get {
 				return currentAntorCtrl;
@@ -66,9 +66,9 @@ namespace SuperHero.Logical
 				currentAntorCtrl = value;
 			}
 		}
-
+		
 		private ClimbController currentClimbCtrl;
-
+		
 		public ClimbController CurrentClimbCtrl {
 			get {
 				return currentClimbCtrl;
@@ -77,10 +77,10 @@ namespace SuperHero.Logical
 				currentClimbCtrl = value;
 			}
 		}
-
-
+		
+		
 		private FlyController currentFlyCtrl;
-
+		
 		public FlyController CurrentFlyCtrl {
 			get {
 				return currentFlyCtrl;
@@ -89,8 +89,18 @@ namespace SuperHero.Logical
 				currentFlyCtrl = value;
 			}
 		}		
-
-
+		
+		private PropertyMaster currentPM;
+		
+		public PropertyMaster CurrentPM {
+			get {
+				return currentPM;
+			}
+			set {
+				currentPM = value;
+			}
+		}
+		
 		public Vector3 fallCenter;
 		public float fallHeight;
 		/// <summary>
@@ -141,44 +151,62 @@ namespace SuperHero.Logical
 		private bool isPause=false;
 
 
+		private bool isDead=false;
+
+		public bool IsDead {
+			get {
+				return isDead;
+			}
+			set {
+				isDead=value;
+			}
+		}		
+		
 		Vector3 [] mCC_Center=new Vector3[2];
 		float [] mCC_Height=new float[2];
-
+		/// <summary>
+		/// 攻击到达的步骤
+		/// </summary>
 		eAttackStage mAttackStage=eAttackStage.None;
 		public float attackGap=1f;
-		#endregion
-		#region Interface
 
+		public VoidDelegate onDead;
+		public VoidDelegate onRevival;
+		#endregion
+		#region interface
+		
 		void Awake()
 		{
 			GlobalInGame.currentPC=this;
 		}
 		// Use this for initialization
 		void Start () {
-
-			currentGameInfo.HP_Max=100f;
-			currentGameInfo.MP_Max=100f;
-			currentGameInfo.HP=100f;
-			currentGameInfo.MP=100f;
-
+			
+			currentGameInfo.HP_Max=100;
+			currentGameInfo.MP_Max=100;
+			currentGameInfo.HP=100;
+			currentGameInfo.MP=100;
+			
 			currentClimbCtrl=GetComponent<ClimbController>();
 			currentFlyCtrl=GetComponent<FlyController>();
 			currentAntorCtrl=GetComponent<PlayerAnimationController>();
 			CurrentCatapultCtrl=GetComponent<CatapultController>();
-
+			currentPM=GetComponent<PropertyMaster>();
+			
 			mCC=GetComponent<CharacterController>();
 			mIC=GameObject.Find("InputController").GetComponent<InputControl>();
+			
 			if(mCC!=null&&mIC!=null)//注册委托
 			{
 				RegisterOP();
-
+				
 			}
 			mYSpeed=gravity;
 			mCC_Center[0]=mCC.center;
 			mCC_Height[0]=mCC.height;
 			mCC_Height[1]=fallHeight;
 			mCC_Center[1]=fallCenter;
-
+			
 			if(currentAntorCtrl)
 			{
 				if(currentAntorCtrl.Amtor==null)
@@ -186,12 +214,12 @@ namespace SuperHero.Logical
 				currentAntorCtrl.RunA();
 			}
 		}
-
+		
 		void OnEnable()
 		{
 			//Start();
 		}
-
+		
 		// Update is called once per frame
 		void Update () {
 			if(!isPause)
@@ -199,84 +227,86 @@ namespace SuperHero.Logical
 				UpdateRotate();
 				UpdateOffest();
 				UpdateHeight();
-
+				
 				UpdatePositon();
 			}
-
-		}
-
-		void OnGUI()
-		{
-			GUILayout.Label(mJumpState.ToString());
-			GUILayout.Label(mYSpeed.ToString());
-		}
-
-
-		void OnControllerColliderHit(ControllerColliderHit hit)
-		{
-			switch(hit.collider.transform.root.gameObject.layer)
-			{
-			case 9://Road
-				break;
-			case 10://Obstacle
-				GetHurt(hit.collider.GetComponent<CarInfo>().hurtPoint,hit);
-				break;
-			case 11://Monster
-				break;
-			default:
-				break;
+			if(Input.GetKeyDown(KeyCode.A))
+			   {
+				Attack();
 			}
-			
 		}
+		
+		//		void OnGUI()
+		//		{
+		//			GUILayout.Label(mJumpState.ToString());
+		//			GUILayout.Label(mYSpeed.ToString());
+		//		}
+		
+		
+		
 		/// <summary>
 		/// 受到伤害时调用
 		/// </summary>
 		/// <param name="blood">Blood.</param>
 		/// <param name="hit">Hit.</param>
-		public void GetHurt(float blood,ControllerColliderHit hit)
+		/// <param name="isDestroy">是否摧毁障碍物</param>
+		public void GetHurt(int blood,ControllerColliderHit hit,bool isDestroy)
 		{
-			Destroy(hit.collider.gameObject);
+			if(isDestroy)
+				Destroy(hit.collider.gameObject);
 			GetHurt(blood);
-//			//在直行道上面行走
-//			if(mRunMode==eRunMode.straight)
-//			{
-//				if(bIsChangeTrack==true)
-//				{
-//					Debuger.Log("换轨中接触到障碍物:"+hit.collider.name+"  HP减少:"+blood.ToString());
-//					mSurplusChangeTime=xChangTime-mSurplusChangeTime;
-//					if(mEndPos-mStartPos>0f)//Right
-//					{
-//						mTrack--;
-//					}
-//					else//Left
-//					{
-//						mTrack++;
-//					}
-//					float temp=mEndPos;
-//					mEndPos=mStartPos;
-//					mStartPos=temp;
-//					bIsChangeTrack=true;
-//					
-//					currentGameInfo.HP-=blood;
-//				}
-//				else
-//				{
-//					Debuger.Log("正面接触到障碍物:"+hit.collider.name+"  HP减少:"+blood.ToString());
-//					currentGameInfo.HP-=blood;
-//				}
-//				Debuger.Log("Destoryed "+hit.collider.name);
-//				Destroy( hit.collider.gameObject);
-//				
-//				if(currentGameInfo.HP<=0f)
-//				{
-//					Debuger.Log("Dead!!!!!");
-//					currentGameInfo.HP=0f;
-//				}
-//				
-//				
-//			}
+			//			//在直行道上面行走
+			//			if(mRunMode==eRunMode.straight)
+			//			{
+			//				if(bIsChangeTrack==true)
+			//				{
+			//					Debuger.Log("换轨中接触到障碍物:"+hit.collider.name+"  HP减少:"+blood.ToString());
+			//					mSurplusChangeTime=xChangTime-mSurplusChangeTime;
+			//					if(mEndPos-mStartPos>0f)//Right
+			//					{
+			//						mTrack--;
+			//					}
+			//					else//Left
+			//					{
+			//						mTrack++;
+			//					}
+			//					float temp=mEndPos;
+			//					mEndPos=mStartPos;
+			//					mStartPos=temp;
+			//					bIsChangeTrack=true;
+			//					
+			//					currentGameInfo.HP-=blood;
+			//				}
+			//				else
+			//				{
+			//					Debuger.Log("正面接触到障碍物:"+hit.collider.name+"  HP减少:"+blood.ToString());
+			//					currentGameInfo.HP-=blood;
+			//				}
+			//				Debuger.Log("Destoryed "+hit.collider.name);
+			//				Destroy( hit.collider.gameObject);
+			//				
+			//				if(currentGameInfo.HP<=0f)
+			//				{
+			//					Debuger.Log("Dead!!!!!");
+			//					currentGameInfo.HP=0f;
+			//				}
+			//				
+			//				
+			//			}
 		}
-		public void GetHurt(float blood)
+		
+//		public void GetGoldCoin()
+//		{
+//			currentGameInfo.goldCions++;
+//			currentPM.GoldIN();
+//		}
+//		
+		public void GetProps(PropInfo prop)
+		{
+			currentPM.GetProp(prop);
+		}
+		
+		public void GetHurt(int blood)
 		{
 			//在直行道上面行走
 			if(mRunMode==eRunMode.straight)
@@ -307,12 +337,15 @@ namespace SuperHero.Logical
 				if(currentGameInfo.HP<=0f)
 				{
 					Debuger.Log("Dead!!!!!");
-					currentGameInfo.HP=0f;
+					Dead();
+					currentGameInfo.HP=0;
 				}
 				
 				
 			}
 		}
+		
+		
 		#endregion
 		#region OperationReflect
 		[HideInInspector]
@@ -339,10 +372,10 @@ namespace SuperHero.Logical
 				}
 			}
 		}
-
+		
 		void TurnRight()
 		{
-
+			
 			if(mTrackNum==eTrackNum.Three)
 			{
 				if(mTrack!=eTrack.midRight&&!bIsChangeTrack)
@@ -357,8 +390,8 @@ namespace SuperHero.Logical
 				}
 			}
 		}
-
-
+		
+		
 		public void Jump(float ySpeed)
 		{
 			if( mJumpState==eJumpState.NoneJump)
@@ -374,13 +407,13 @@ namespace SuperHero.Logical
 				currentAntorCtrl.JumpTwo();
 			}
 		}
-
+		
 		public void Jump()
 		{
 			Jump(jumpSpeed);
 		}
-
-
+		
+		
 		void Attack()
 		{
 			if(mRunMode==eRunMode.straight)
@@ -416,8 +449,21 @@ namespace SuperHero.Logical
 				currentAntorCtrl.FlyAttack();
 			}
 
-		}
+			RaycastHit hit;
+			Debug.DrawLine(transform.position+new Vector3(0f,1f,0f),transform.position+new Vector3(0f,0f,5f));
 
+			if(Physics.Raycast(transform.position+new Vector3(0f,1f,0f),transform.forward,out hit,5f,1<<11))
+			{
+				//Destroy(hit.collider.gameObject);
+				Monster mm=hit.collider.GetComponent<Monster>();
+				Debug.Log("hit");
+				mm.BeAttack();
+//				Debug.Log(hit.collider.gameObject.layer.ToString());
+			}
+
+			
+		}
+		
 		IEnumerator AttackFirst()
 		{
 			yield return new WaitForSeconds(attackGap);
@@ -452,7 +498,7 @@ namespace SuperHero.Logical
 				}
 			}
 		}
-
+		
 		IEnumerator mCCFallDown()
 		{
 			mCC.height=mCC_Height[1];
@@ -463,13 +509,66 @@ namespace SuperHero.Logical
 			yield return null;
 		}
 
+
 		public void Dead()
 		{
+			isDead=true;
 			mIsHover=true;
 			isPause=true;
-			mRunMode=eRunMode.dead;
-			currentAntorCtrl.Dead();
+
+			switch(mRunMode)
+			{
+			case eRunMode.straight:
+				isDead=true;
+				mIsHover=true;
+				isPause=true;
+				currentAntorCtrl.Dead();
+				break;
+
+			case eRunMode.climb:
+				CurrentClimbCtrl.Dead();
+				break;
+			default:
+				break;
+			}
+
 		}
+		/// <summary>
+		/// 复活
+		/// </summary>
+		public void Revival()
+		{
+
+			switch(mRunMode)
+			{
+			case eRunMode.straight:
+				mIsHover=false;
+				isPause=false;
+				isDead=false;
+				currentAntorCtrl.RunA();
+				bool isOK=false;
+				int index=1;
+				while(isOK==false)
+				{
+					RaycastHit hit;
+					Vector3 start=new Vector3(transform.position.x,transform.position.y+5f,transform.position.z+5f*index);
+					Vector3 direction=Vector3.down;
+					Debug.DrawLine(start,start+new Vector3(0f,-10f,0f));
+					if(Physics.Raycast(start,direction,out hit,10f,1<<9))
+					{
+						transform.position=hit.point;
+						isOK=true;
+					}
+					index++;
+				}
+				break;
+				
+			default:
+				break;
+			}
+
+		}
+
 
 		#endregion
 		#region Method
@@ -507,9 +606,9 @@ namespace SuperHero.Logical
 			mIsHover=false;
 			yield return null;
 		}
-
-
-
+		
+		
+		
 		public void ReStart(Vector3 startPosition,Vector3 startDirection)
 		{
 			mIsHover=false;
@@ -541,9 +640,9 @@ namespace SuperHero.Logical
 			transform.position=currentP;
 			mSurplusChangeTime=0f;
 		}
-
-
-
+		
+		
+		
 		public void Pause()
 		{
 			isPause=true;
@@ -556,20 +655,20 @@ namespace SuperHero.Logical
 				mIC.Attack-=Attack;
 			}
 		}
-
+		
 		public void Resume()
 		{
 			isPause=false;
 			RegisterOP();
 		}
-
+		
 		public void Stop()
 		{
 			isPause=true;
 			CancelOP();
-
+			
 		}
-
+		
 		public void RoundRight(Vector3 center)
 		{
 			roundCenter=center;
@@ -587,12 +686,12 @@ namespace SuperHero.Logical
 		/// </summary>
 		public void ClimbStart(float ySpeed=20f)
 		{
-
+			
 			CancelOP();
 			Jump(ySpeed);
-
+			
 		}
-
+		
 		public void Climbing(Vector3 climbDirection)
 		{
 			localYOffset=0f;
@@ -602,7 +701,7 @@ namespace SuperHero.Logical
 			mRunMode=eRunMode.climb;
 			currentClimbCtrl.ClimbStart(this);
 		}
-
+		
 		public void ClimbEnd(Vector3 roadDirection)
 		{
 			currentClimbCtrl.EndClimb(roadDirection);
@@ -613,7 +712,7 @@ namespace SuperHero.Logical
 			mRunMode=eRunMode.straight;
 			mJumpState=eJumpState.NoneJump;
 		}
-
+		
 		public void FlyStart(float ySpeed,float speed,float gravity)
 		{
 			mRunMode=eRunMode.fly;
@@ -621,14 +720,14 @@ namespace SuperHero.Logical
 			isPause=true;
 			CancelOP();
 			currentFlyCtrl.StartFly(this,ySpeed,speed,gravity);
-
+			
 		}
-
+		
 		public void ContinueFly(float ySpeed=10f)
 		{
 			currentFlyCtrl.ContinueFly(ySpeed);
 		}
-
+		
 		public void CatapultReady()
 		{
 			if(CurrentCatapultCtrl==null)
@@ -638,24 +737,26 @@ namespace SuperHero.Logical
 			}
 			CurrentCatapultCtrl.CatapultReady();
 		}
-
+		
 		public void Catapulting(Vector3 start,Vector3 target,float gravity,float ySpeed)
 		{
 			CurrentCatapultCtrl.Catapulting(start,target,gravity,ySpeed);
 		}
-
+		
 		public void CatapultEnd()
 		{
 			CurrentCatapultCtrl.CatapultEnd();
 		}
-
+		
 		public void RegisterOP()
 		{
 			if(mCC!=null&&mIC!=null)//注册委托
 			{
-				Debug.Log("RegisterOP");
 				if(mIC.TurnLeft==null)
+				{
 					mIC.TurnLeft+=TurnLeft;
+					Debug.Log("RegisterOP");
+				}
 				if(mIC.TurnRight==null)
 					mIC.TurnRight+=TurnRight;
 				if(mIC.JumpOP==null)
@@ -678,12 +779,12 @@ namespace SuperHero.Logical
 				mIC.Attack-=Attack;
 			}
 		}
-
-
-
+		
+		
+		
 		#endregion
 		#region UpdatePositionAndRotation
-
+		
 		/// <summary>
 		/// 应用偏移量:Tps:换轨过程中碰撞不可碰撞，不然会偏移错误，可以根据初始位置和方向进行矫正，后期修改
 		/// </summary>
@@ -717,10 +818,10 @@ namespace SuperHero.Logical
 			{
 				localXOffset=0f;
 			}
-
+			
 		}
 		float localYOffset=0f;
-
+		
 		/// <summary>
 		/// 更新高度
 		/// </summary>
@@ -735,7 +836,7 @@ namespace SuperHero.Logical
 						mYSpeed+=gravity*Time.deltaTime;
 					else if(mFallDown==eFallDown.doubleGravity)
 						mYSpeed+=gravity*Time.deltaTime*5f;
-						//mYSpeed+=gravity*Time.deltaTime*2f;
+					//mYSpeed+=gravity*Time.deltaTime*2f;
 				}
 				else if(mYSpeed>gravity)
 				{
@@ -757,9 +858,9 @@ namespace SuperHero.Logical
 								mFallDown=eFallDown.normal;
 							}
 						}
-
+						
 					}
-
+					
 				}
 			}
 			else//滞留空中
@@ -767,7 +868,7 @@ namespace SuperHero.Logical
 				localYOffset=0f;
 			}
 		}
-
+		
 		/// <summary>
 		/// 做圆周运动的时候的圆心坐标
 		/// </summary>
@@ -803,7 +904,7 @@ namespace SuperHero.Logical
 			default:break;
 			}
 		}
-
+		
 		void UpdatePositon()
 		{
 			switch(mRunMode)
@@ -828,31 +929,31 @@ namespace SuperHero.Logical
 				mCC.Move(transform.TransformDirection(new Vector3(x1,localYOffset,h1)));
 				break;
 			case eRunMode.climb:
-//				moveDirection=new Vector3(localXOffset,localYOffset,moveSpeed*Time.deltaTime);
-//				moveDirection= transform.TransformDirection(moveDirection);
-//				transform.position+=moveDirection;
+				//				moveDirection=new Vector3(localXOffset,localYOffset,moveSpeed*Time.deltaTime);
+				//				moveDirection= transform.TransformDirection(moveDirection);
+				//				transform.position+=moveDirection;
 				break;
 			default :break;
 			}
 		}
-
+		
 		#endregion
-
-
+		
+		
 		#region Enum
 		public enum eFallDown
 		{
 			normal=0,
 			doubleGravity=1,
 		}
-
+		
 		public enum eJumpState
 		{
 			NoneJump=0,
 			FirstJump=1,
 			DoubleJump=2,
 		};
-
+		
 		public enum eTrack
 		{
 			left=1,
@@ -861,13 +962,13 @@ namespace SuperHero.Logical
 			midRight=4,
 			right=5,
 		};
-
+		
 		public enum eTrackNum
 		{
 			Three=3,
 			Five=5,
 		}
-
+		
 		public enum eRunMode
 		{
 			straight=1,
@@ -876,17 +977,16 @@ namespace SuperHero.Logical
 			climb=4,
 			fly=5,
 			changeRoad=6,
-			dead=7,
 		}
-
+		
 		public enum eAttackStage
 		{
 			None=0,
 			First=1,
 			Double=2,
 		}
-
+		
 		#endregion
 	}
-
+	
 }

@@ -1,0 +1,4 @@
+/Users/chang/Unity3D/demo1/Temp/bin/Debug/Assembly-CSharp-firstpass.dll.mdb
+/Users/chang/Unity3D/demo1/Temp/bin/Debug/Assembly-CSharp-firstpass.dll
+/Users/chang/Unity3D/demo1/obj/Debug/Assembly-CSharp-firstpass.dll
+/Users/chang/Unity3D/demo1/obj/Debug/Assembly-CSharp-firstpass.dll.mdb

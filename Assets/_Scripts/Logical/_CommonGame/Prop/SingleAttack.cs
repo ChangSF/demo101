@@ -10,7 +10,7 @@ namespace SuperHero.Logical
 		
 		// Use this for initialization
 		void Start () {
-			prop=new PropInfo(130001,0.5f,10f,0f,25,eAttackMode.SingleAttack,"单体正直线攻击NPC",1);
+			prop=new PropInfo(130001,0.5f,10f,0f,25,ePropType.SingleAttack,"单体正直线攻击NPC",1);
 		}
 		
 		// Update is called once per frame

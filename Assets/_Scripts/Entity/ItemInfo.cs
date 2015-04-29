@@ -7,14 +7,14 @@ namespace SuperHero.Entity
 	/// 道具信息，每个道具一个，包含道具的种类名编号，名字，个数，效果(暂时为加血，加速，攻击，载具)
 	/// </summary>
 	public class ItemInfo{
-		public uint mItemID;
-		public uint mItemNum;
+		public int mItemID;
+		public int mItemNum;
 		public string mName;
 		public eItemType mItemTpye;
-		public uint mBlood;
-		public uint mSpeed;
+		public int mBlood;
+		public int mSpeed;
 		public float mSpeedTime;
-		public uint mAttack;
+		public int mAttack;
 		public bool mSkateboard;
 
 	}

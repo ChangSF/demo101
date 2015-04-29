@@ -125,6 +125,11 @@ namespace SuperHero.Logical
 			}
 		}
 
+		public void Dead()
+		{
+			isClimbing=false;
+		}
+
 		#endregion
 		
 		#region UpdatePositionAndRotation

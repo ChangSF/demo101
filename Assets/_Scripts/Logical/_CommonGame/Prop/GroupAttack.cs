@@ -9,8 +9,8 @@ namespace SuperHero.Logical
 		public float gravity=20f;
 		public float flyTime=0.5f;
 		public float flySpeed=10f;
-		public float blood=-40f;
-		public eAttackMode attackMode=eAttackMode.GroupAttack;
+		public int blood=-40;
+		public ePropType attackMode=ePropType.GroupAttack;
 		public string description="群体范围攻击NPC";
 		public int maxNum=1;
 		private PropInfo propInfo;
