@@ -6,6 +6,7 @@ namespace SuperHero.Logical
 		public Vector3 direction;
 		public Vector3 position;
 		public bool useLocal=false;
+		public bool registOP=true;
 		private bool isEntered=false;
 		void OnTriggerEnter(Collider other)
 		{
@@ -19,7 +20,9 @@ namespace SuperHero.Logical
 					pc.ReStart(position,direction);
 				//pc.RegisterOP();
 				StartCoroutine(EnableAgain());
-				
+
+				if(registOP)
+					GlobalInGame.currentPC.RegisterOP();
 				isEntered=true;
 			}
 		}

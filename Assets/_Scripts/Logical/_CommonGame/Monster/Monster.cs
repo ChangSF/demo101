@@ -7,20 +7,34 @@ namespace SuperHero.Logical
 
 		public int attackpoint=10;
 
-
+		protected bool isDying=false;
 		// Use this for initialization
-		void Start () {
+		protected virtual void Start () {
 		
 		}
 		
 		// Update is called once per frame
-		void Update () {
-		
+		protected virtual void Update () {
+			if(isDying)
+			{
+				transform.Translate(GlobalInGame.currentPC.transform.forward*-3f+GlobalInGame.currentPC.transform.up);
+			}
 		}
 
-		public void BeAttack()
+		public virtual void BeAttack()
 		{
-			Destroy(gameObject);
+			isDying=true;
+			Destroy(gameObject,3f);
+		}
+
+
+
+		public enum MonsterState
+		{
+			Idle=0,
+			Active=1,
+			Move=2,
+			Dead=3,
 		}
 	}
 }

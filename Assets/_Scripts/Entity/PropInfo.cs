@@ -20,21 +20,21 @@ namespace SuperHero.Entity
 		[SerializeField]
 		public int Blood;
 		[SerializeField]
-		public ePropType AttackMode;
+		public ePropType PropType;
 		[SerializeField]
 		public string Description;
 		[SerializeField]
 		public int NumMax;
 		
 		public PropInfo(){}
-		public PropInfo(int id,float flyTime,float gravity,float flySpeed,int blood,ePropType attackMode,string description,int numMax)
+		public PropInfo(int id,float flyTime,float gravity,float flySpeed,int blood,ePropType PropType,string description,int numMax)
 		{
 			this.ID=id;
 			this.FlyTime=flyTime;
 			this.Gravity=gravity;
 			this.FlySpeed=FlySpeed;
 			this.Blood=blood;
-			this.AttackMode=attackMode;
+			this.PropType=PropType;
 			this.NumMax=numMax;
 		}
 		
@@ -42,6 +42,7 @@ namespace SuperHero.Entity
 	[SerializeField]
 	public enum ePropType
 	{
+		None=-1,
 		SingleAttack=0,
 		GroupAttack=1,
 		SingleRecover=2,
@@ -49,6 +50,7 @@ namespace SuperHero.Entity
 		GroupAttract=4,
 		SingleAchieve=5,
 		GoldIcon=6,
+		Magnet=7,
 	}
 	
 }

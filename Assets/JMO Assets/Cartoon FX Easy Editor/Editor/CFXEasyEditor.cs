@@ -1070,7 +1070,7 @@ public class CFXEasyEditor : EditorWindow
 			{
 				case SerializedPropertyType.Color:		copyGrad.colorValue = gradient.colorValue; break;
 				case SerializedPropertyType.Integer:	copyGrad.intValue = gradient.intValue; break;
-				default: Debug.Log("CopyGradient: Unrecognized property type:" + gradient.propertyType); break;
+				default: Debug.Log("CopyGradient: Unrecognized Property type:" + gradient.propertyType); break;
 			}
 			gradient.Next(true);
 			copyGrad.Next(true);

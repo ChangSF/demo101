@@ -488,7 +488,7 @@ namespace SuperHero.Logical
 				RaycastHit hit;
 				if(Physics.Raycast(transform.position,Vector3.down,out hit,mCC.height*0.5f, 1<<9))
 				{
-					Debug.Log("height: "+hit.distance.ToString());
+//					Debug.Log("height: "+hit.distance.ToString());
 					StartCoroutine(mCCFallDown());
 					currentAntorCtrl.Shovel();
 				}

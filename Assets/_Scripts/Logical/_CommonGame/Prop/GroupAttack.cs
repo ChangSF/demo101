@@ -10,7 +10,7 @@ namespace SuperHero.Logical
 		public float flyTime=0.5f;
 		public float flySpeed=10f;
 		public int blood=-40;
-		public ePropType attackMode=ePropType.GroupAttack;
+		public ePropType PropType=ePropType.GroupAttack;
 		public string description="群体范围攻击NPC";
 		public int maxNum=1;
 		private PropInfo propInfo;
@@ -23,14 +23,14 @@ namespace SuperHero.Logical
 //			propInfo.FlyTime=flyTime;
 //			propInfo.FlySpeed=addedSpeed;
 //			propInfo.Blood=blood;
-//			propInfo.AttackMode=attackMode;
+//			propInfo.PropType=PropType;
 //			propInfo.Description=description;
 //			propInfo.NumMax=maxNum;
 //		}
 
 		void OnTriggerEnter()
 		{
-			propInfo=new PropInfo(Id,flyTime,gravity,flySpeed,blood,attackMode,description,maxNum);
+			propInfo=new PropInfo(Id,flyTime,gravity,flySpeed,blood,PropType,description,maxNum);
 			GlobalInGame.currentPM.GetProp(propInfo);
 			this.gameObject.SetActive(false);
 

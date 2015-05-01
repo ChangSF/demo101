@@ -95,9 +95,9 @@ namespace UnityStandardAssets.Utility.Inspector
         private const float k_Spacing = 4;
 
 
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        public override void OnGUI(Rect position, SerializedProperty Property, GUIContent label)
         {
-            EditorGUI.BeginProperty(position, label, property);
+            EditorGUI.BeginProperty(position, label, Property);
 
             float x = position.x;
             float y = position.y;
@@ -110,7 +110,7 @@ namespace UnityStandardAssets.Utility.Inspector
             var indent = EditorGUI.indentLevel;
             EditorGUI.indentLevel = 0;
 
-            var entries = property.FindPropertyRelative("entries");
+            var entries = Property.FindPropertyRelative("entries");
 
             if (entries.arraySize > 0)
             {
@@ -204,9 +204,9 @@ namespace UnityStandardAssets.Utility.Inspector
         }
 
 
-        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        public override float GetPropertyHeight(SerializedProperty Property, GUIContent label)
         {
-            SerializedProperty entries = property.FindPropertyRelative("entries");
+            SerializedProperty entries = Property.FindPropertyRelative("entries");
             float lineAndSpace = k_LineHeight + k_Spacing;
             return 40 + (entries.arraySize*lineAndSpace) + lineAndSpace;
         }

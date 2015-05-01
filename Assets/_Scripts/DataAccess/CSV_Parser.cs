@@ -31,19 +31,19 @@ public class CSV_Parser{
 				{
 					continue;
 				}
-				PropertyInfo property = t.GetType().GetProperty(colNames[i]);
+				PropertyInfo Property = t.GetType().GetProperty(colNames[i]);
 				if (string.IsNullOrEmpty(fieldValues[i]))
 				{
-					Type propertyType = property.PropertyType;
+					Type propertyType = Property.PropertyType;
 					if (propertyType == typeof(string))
 					{
-						property.SetValue(t, "", null);
+						Property.SetValue(t, "", null);
 					}
 					else if (propertyType == typeof(int) || propertyType == typeof(short) ||
 					         propertyType == typeof(byte) || propertyType == typeof(float) ||
 					         propertyType == typeof(double))
 					{
-						property.SetValue(t, 0, null);
+						Property.SetValue(t, 0, null);
 					}
 					else
 					{
@@ -52,7 +52,7 @@ public class CSV_Parser{
 				}
 				else
 				{
-					property.SetValue(t, Convert.ChangeType(fieldValues[i], property.PropertyType), null);
+					Property.SetValue(t, Convert.ChangeType(fieldValues[i], Property.PropertyType), null);
 				}
 				//#if UNITY_EDITOR
 			}catch(Exception e){

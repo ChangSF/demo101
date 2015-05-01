@@ -7,7 +7,7 @@ namespace UnityStandardAssets.ImageEffects
     [AddComponentMenu("")]
     public class ImageEffectBase : MonoBehaviour
     {
-        /// Provides a shader property that is set in the inspector
+        /// Provides a shader Property that is set in the inspector
         /// and a material instantiated from the shader
         public Shader shader;
 

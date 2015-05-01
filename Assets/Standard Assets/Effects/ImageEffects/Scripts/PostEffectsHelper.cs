@@ -20,7 +20,7 @@ namespace UnityStandardAssets.ImageEffects
         {
             // Make the destination texture the target for all rendering
             RenderTexture.active = dest;
-            // Assign the source texture to a property from a shader
+            // Assign the source texture to a Property from a shader
             material.SetTexture("_MainTex", source);
             bool  invertY = true; // source.texelSize.y < 0.0f;
             // Set up the simple Matrix
@@ -154,7 +154,7 @@ namespace UnityStandardAssets.ImageEffects
 		{
             // Make the destination texture the target for all rendering
             RenderTexture.active = dest;
-            // Assign the source texture to a property from a shader
+            // Assign the source texture to a Property from a shader
             material.SetTexture("_MainTex", source);
             bool  invertY = true; // source.texelSize.y < 0.0f;
             // Set up the simple Matrix

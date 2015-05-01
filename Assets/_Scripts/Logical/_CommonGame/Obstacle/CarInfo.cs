@@ -3,8 +3,9 @@ using System.Collections;
 
 namespace SuperHero.Logical
 {
-	public class CarInfo : MonoBehaviour {
-		public int hurtPoint=5;
+	public class CarInfo : Obstacle {
+//		public override int hurtPoint=5;
+
 		public eCarMode mCarMode=eCarMode.STATIC;
 		public bool isRunning=true;
 		public float speed=5f;
@@ -50,7 +51,7 @@ namespace SuperHero.Logical
 
 		public override string ToString ()
 		{
-			return string.Format("hurtPoint:{0};mCarMode:{1};isRunning:{2};speed:{3};",hurtPoint.ToString(),mCarMode.ToString(),isRunning.ToString(),speed.ToString());
+			return string.Format("hurtPoint:{0};mCarMode:{1};isRunning:{2};speed:{3};",base.hitPoint.ToString(),mCarMode.ToString(),isRunning.ToString(),speed.ToString());
 		}
 
 	}

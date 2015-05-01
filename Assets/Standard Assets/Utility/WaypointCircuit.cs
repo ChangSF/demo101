@@ -229,9 +229,9 @@ namespace UnityStandardAssets.Utility.Inspector
         private float spacing = 4;
 
 
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        public override void OnGUI(Rect position, SerializedProperty Property, GUIContent label)
         {
-            EditorGUI.BeginProperty(position, label, property);
+            EditorGUI.BeginProperty(position, label, Property);
 
             float x = position.x;
             float y = position.y;
@@ -244,7 +244,7 @@ namespace UnityStandardAssets.Utility.Inspector
             var indent = EditorGUI.indentLevel;
             EditorGUI.indentLevel = 0;
 
-            var items = property.FindPropertyRelative("items");
+            var items = Property.FindPropertyRelative("items");
             var titles = new string[] {"Transform", "", "", ""};
             var props = new string[] {"transform", "^", "v", "-"};
             var widths = new float[] {.7f, .1f, .1f, .1f};
@@ -328,7 +328,7 @@ namespace UnityStandardAssets.Utility.Inspector
             var addAllButtonRect = new Rect(x, y, inspectorWidth, lineHeight);
             if (GUI.Button(addAllButtonRect, "Assign using all child objects"))
             {
-                var circuit = property.FindPropertyRelative("circuit").objectReferenceValue as WaypointCircuit;
+                var circuit = Property.FindPropertyRelative("circuit").objectReferenceValue as WaypointCircuit;
                 var children = new Transform[circuit.transform.childCount];
                 int n = 0;
                 foreach (Transform child in circuit.transform)
@@ -348,7 +348,7 @@ namespace UnityStandardAssets.Utility.Inspector
             var renameButtonRect = new Rect(x, y, inspectorWidth, lineHeight);
             if (GUI.Button(renameButtonRect, "Auto Rename numerically from this order"))
             {
-                var circuit = property.FindPropertyRelative("circuit").objectReferenceValue as WaypointCircuit;
+                var circuit = Property.FindPropertyRelative("circuit").objectReferenceValue as WaypointCircuit;
                 int n = 0;
                 foreach (Transform child in circuit.waypointList.items)
                 {
@@ -363,9 +363,9 @@ namespace UnityStandardAssets.Utility.Inspector
         }
 
 
-        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        public override float GetPropertyHeight(SerializedProperty Property, GUIContent label)
         {
-            SerializedProperty items = property.FindPropertyRelative("items");
+            SerializedProperty items = Property.FindPropertyRelative("items");
             float lineAndSpace = lineHeight + spacing;
             return 40 + (items.arraySize*lineAndSpace) + lineAndSpace;
         }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DestorySelf : MonoBehaviour {
+public class Property : MonoBehaviour {
 	public float degree=90f;
 	// Use this for initialization
 	protected void Start () {

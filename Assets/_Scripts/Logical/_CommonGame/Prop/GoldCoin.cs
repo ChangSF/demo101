@@ -4,7 +4,7 @@ using SuperHero.Entity;
 
 namespace SuperHero.Logical
 {
-	public class GoldCoin : DestorySelf {
+	public class GoldCoin : Property {
 		[SerializeField]
 		public PropInfo jinbi;
 

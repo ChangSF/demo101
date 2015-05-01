@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{4BDE285D-6255-31DD-892D-5E317A962147}</ProjectGuid>
+	<ProjectGuid>{69B1F7B3-7ADB-F9F1-2A17-F30EF98821A4}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -46,84 +46,104 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX2_Demo.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX_Demo_RandomDir.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX_Demo_RotateCamera.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Scripts\CFX2_AutoRotate.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Scripts\CFX_AutoDestructShuriken.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Scripts\CFX_AutodestructWhenNoChildren.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Scripts\CFX_LightIntensityFade.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Scripts\CFX_ShurikenThreadFix.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Spawn System\CFX_SpawnSystem.cs" />
-     <Compile Include="Assets\_Scripts\DataAccess\CSV_Parser.cs" />
-     <Compile Include="Assets\_Scripts\DataAccess\NetListener.cs" />
-     <Compile Include="Assets\_Scripts\DataAccess\NetReceiver.cs" />
-     <Compile Include="Assets\_Scripts\DataAccess\SocketClient.cs" />
-     <Compile Include="Assets\_Scripts\Entity\CurrentGameInfo.cs" />
-     <Compile Include="Assets\_Scripts\Entity\EnemyInfo.cs" />
-     <Compile Include="Assets\_Scripts\Entity\EquipmentInfo.cs" />
-     <Compile Include="Assets\_Scripts\Entity\GoodsItemVO.cs" />
-     <Compile Include="Assets\_Scripts\Entity\HeroInfo.cs" />
-     <Compile Include="Assets\_Scripts\Entity\ItemInfo.cs" />
-     <Compile Include="Assets\_Scripts\Entity\MainStoreVO.cs" />
-     <Compile Include="Assets\_Scripts\Entity\PetInfo.cs" />
-     <Compile Include="Assets\_Scripts\Entity\PropInfo.cs" />
-     <Compile Include="Assets\_Scripts\Entity\SkillInfo.cs" />
-     <Compile Include="Assets\_Scripts\Global\GlobalInGame.cs" />
-     <Compile Include="Assets\_Scripts\Global\IniParser.cs" />
-     <Compile Include="Assets\_Scripts\Logical\DebugerController.cs" />
-     <Compile Include="Assets\_Scripts\Logical\LoadScene.cs" />
-     <Compile Include="Assets\_Scripts\Logical\Login.cs" />
-     <Compile Include="Assets\_Scripts\Logical\TaskManager.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\BuildingCreater.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\BuildingInfo.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\BuildingManager.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\CameraFollw.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\CommonGameUI.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Dead.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\InputControl.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Monster\MidMonster.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Monster\Monster.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Monster\SmallMonster.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Obstacle\CarInfo.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Obstacle\Obstacle.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Obstacle\WaterTank.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Player\CatapultController.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Player\ClimbController.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Player\FlyController.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Player\ObstacleController.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Player\PlayerAnimationController.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Player\PlayerController.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Player\PropertyMaster.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\DestorySelf.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\GoldCoin.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\GroupAttack.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\PropManager.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\Record.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\RecoverHP.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\SingleAttack.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Prop\SpeedUp.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\PropCreater.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\PropPlay\GroupAttackPlay.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\BuildingExit.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\CancelInput.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\CatapultEndTrigger.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\CatapultReadyTrigger.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\CatapultTrigger.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\JumpTrigger.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\ReFlyTrigger.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\climbEndTrigger.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\climbTrigger.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\flyStartTrigger.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\reStartTrigger.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\roundTrigger.cs" />
-     <Compile Include="Assets\_Scripts\Logical\_CommonGame\Trigger\startTrigger.cs" />
-     <Compile Include="Assets\_Scripts\Test\TestInput.cs" />
-     <Compile Include="Assets\_Scripts\Tools\CreateProps.cs" />
-     <Compile Include="Assets\_Scripts\Tools\StoreCars.cs" />
-     <Compile Include="Assets\_Scripts\UI\GUIManager.cs" />
-     <Compile Include="Assets\_Scripts\UI\GUIWindows.cs" />
-     <Compile Include="Assets\_Scripts\UI\TestClickHandler.cs" />
+     <Compile Include="Assets\Plugins\iTween.cs" />
+     <Compile Include="Assets\Plugins\iTweenPath\iTweenPath.cs" />
+     <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\AxisTouchButton.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\ButtonHandler.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\CrossPlatformInputManager.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\InputAxisScrollbar.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\Joystick.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\MobileControlRig.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\MobileInput.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\StandaloneInput.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TiltInput.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TouchPad.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\VirtualInput.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Antialiasing.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Bloom.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\BloomAndFlares.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\BloomOptimized.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Blur.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\BlurOptimized.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\CameraMotionBlur.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionCurves.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionLookup.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionRamp.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ContrastEnhance.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ContrastStretch.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\CreaseShading.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\DepthOfField.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\DepthOfFieldDeprecated.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\EdgeDetection.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Fisheye.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\GlobalFog.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Grayscale.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ImageEffectBase.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ImageEffects.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\MotionBlur.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\NoiseAndGrain.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\NoiseAndScratches.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsBase.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsHelper.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Quads.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ScreenOverlay.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientObscurance.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientOcclusion.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\SepiaTone.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\SunShafts.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\TiltShift.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Tonemapping.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Triangles.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Twirl.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\VignetteAndChromaticAberration.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Vortex.cs" />
+     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\BlurEffect.cs" />
+     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\ColorCorrectionEffect.cs" />
+     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\ContrastStretchEffect.cs" />
+     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\GlowEffect.cs" />
+     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\GrayscaleEffect.cs" />
+     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\ImageEffectBase.cs" />
+     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\ImageEffects.cs" />
+     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\MotionBlur.cs" />
+     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\NoiseEffect.cs" />
+     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\SSAOEffect.cs" />
+     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\SepiaToneEffect.cs" />
+     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\TwirlEffect.cs" />
+     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\VortexEffect.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\AfterburnerPhysicsForce.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ExplosionFireAndDebris.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ExplosionPhysicsForce.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\Explosive.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ExtinguishableParticleSystem.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\FireLight.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\Hose.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ParticleSystemMultiplier.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\SmokeParticles.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\WaterHoseParticles.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\General Scripts\ActivateTrigger.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\ActivateTrigger.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\AutoMobileShaderSwitch.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\AutoMoveAndRotate.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\CameraRefocus.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\CurveControlledBob.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\DragRigidbody.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\DynamicShadowSettings.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\FOVKick.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\FPSCounter.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\FollowTarget.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\ForcedReset.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\LerpControlledBob.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\ObjectResetter.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\ParticleSystemDestroyer.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\PlatformSpecificContent.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\SimpleActivatorMenu.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\SimpleMouseRotator.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\SmoothFollow.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\TimedObjectActivator.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\TimedObjectDestructor.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\WaypointCircuit.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\WaypointProgressTracker.cs" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\MotionBlur.shader" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
@@ -284,9 +304,6 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\SeparableBlur.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendForBloom.shader" />
- <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>/Users/chang/Unity3D/demo1/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity 5/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -305,10 +322,6 @@
  <Reference Include="DOTween50">
  <HintPath>/Users/chang/Unity3D/demo1/Assets/Plugins/DOTween/DOTween50.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
-      <Project>{69B1F7B3-7ADB-F9F1-2A17-F30EF98821A4}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -104,9 +104,9 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
     [CustomPropertyDrawer(typeof (TiltInput.AxisMapping))]
     public class TiltInputAxisStylePropertyDrawer : PropertyDrawer
     {
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        public override void OnGUI(Rect position, SerializedProperty Property, GUIContent label)
         {
-            EditorGUI.BeginProperty(position, label, property);
+            EditorGUI.BeginProperty(position, label, Property);
 
             float x = position.x;
             float y = position.y;
@@ -118,7 +118,7 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
 
             var props = new[] {"type", "axisName"};
             var widths = new[] {.4f, .6f};
-            if (property.FindPropertyRelative("type").enumValueIndex > 0)
+            if (Property.FindPropertyRelative("type").enumValueIndex > 0)
             {
                 // hide name if not a named axis
                 props = new[] {"type"};
@@ -133,7 +133,7 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
                 Rect rect = new Rect(x, y, w, lineHeight);
                 x += w;
 
-                EditorGUI.PropertyField(rect, property.FindPropertyRelative(props[n]), GUIContent.none);
+                EditorGUI.PropertyField(rect, Property.FindPropertyRelative(props[n]), GUIContent.none);
             }
 
             // Set indent back to what it was

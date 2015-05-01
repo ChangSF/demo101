@@ -22,7 +22,10 @@ namespace SuperHero.Logical
 		private PlayerController pc;
 		
 		public GameObject GoldSE;
-		
+
+		private PropInfo currentProp;
+
+		private bool isMagnet=false;
 		void Start () 
 		{
 			GlobalInGame.currentPM=this;
@@ -37,12 +40,7 @@ namespace SuperHero.Logical
 		
 		void Update()
 		{
-			if(Input.GetKeyDown(KeyCode.A))
-			{
-				
-				
-				//				ps.Play();
-			}
+
 		}
 		
 		void OnControllerColliderHit(ControllerColliderHit hit)
@@ -55,7 +53,9 @@ namespace SuperHero.Logical
 				break;
 			case 10://Obstacle障碍物
 				//Debug.Log(hit.collider.GetComponent<CarInfo>().hurtPoint.ToString());
-				pc.GetHurt(hit.collider.GetComponent<CarInfo>().hurtPoint,hit,false);
+				Obstacle cc=hit.collider.GetComponent<Obstacle>();
+				if(cc!=null)
+					pc.GetHurt(cc.hitPoint,hit,false);
 				break;
 			case 11://Monster怪物
 				
@@ -77,7 +77,7 @@ namespace SuperHero.Logical
 		
 		void SwitchProp(PropInfo prop)
 		{
-			switch(prop.AttackMode)
+			switch(prop.PropType)
 			{
 				
 			}
@@ -85,7 +85,8 @@ namespace SuperHero.Logical
 		
 		public void GetProp(PropInfo prop)
 		{
-			switch(prop.AttackMode)
+			currentProp=prop;
+			switch(prop.PropType)
 			{
 			case ePropType.GroupAttack:
 				
@@ -111,12 +112,35 @@ namespace SuperHero.Logical
 //				Debug.Log(GlobalInGame.currentPC.CurrentGameInfo.goldCions.ToString());
 				GoldIN();
 				break;
+
+			case ePropType.Magnet:
+
+				break;
 			default:
 				break;
 			}
 		}
 		
-		
+		IEnumerator MagnetIN(float time)
+		{
+			while(time>0f)
+			{
+				for(int i=0;i<5;i++)
+				{
+					RaycastHit hit;
+					//Debug.DrawLine(transform.position+new Vector3((i-2)*GlobalInGame.currentPC.xTrackOffset,1f,0f),transform.position+new Vector3((i-2)*GlobalInGame.currentPC.xTrackOffset,1f,0f)+transform.forward*20f,Color.red);
+					
+					if(Physics.Raycast(transform.position+new Vector3((i-2)*GlobalInGame.currentPC.xTrackOffset,1f,0f),transform.forward,out hit,20f,1<<10))
+					{
+						Obstacle ob=hit.transform.GetComponent<Obstacle>();
+						if(ob!=null)
+							ob.GetStartReflection();
+					}
+				}
+				yield return null;
+			}
+		}
+
 		public void GoldIN()
 		{
 			GameObject go=(GameObject)Instantiate(GoldSE);
@@ -173,9 +197,11 @@ namespace SuperHero.Logical
 		/// <param name="speedTime">加速持续的时间,加速时间有最短的限制，必须>2*速度改变时间</param>
 		public void SpeedUp(float speedUp,float speedTime)
 		{
+
 			//在加速过程中吃了加速的道具，刷新加速的时间
 			if(speedUpTimeLeft>2f*speedUpDeltaTime)
 			{
+				Debug.Log("dsfsd");
 				//0.3秒内再吃一个加速不现实吧，加速状态的速度最好是一个固定值
 				speedUpTimeLeft=speedTime;
 				targetSpeedUp=speedUp;

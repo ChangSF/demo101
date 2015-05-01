@@ -426,7 +426,7 @@ public class iTween : MonoBehaviour{
 		args = iTween.CleanArgs(args);
 		
 		if (!args.Contains("onupdate") || !args.Contains("from") || !args.Contains("to")) {
-			Debug.LogError("iTween Error: ValueTo() requires an 'onupdate' callback function and a 'from' and 'to' property.  The supplied 'onupdate' callback must accept a single argument that is the same type as the supplied 'from' and 'to' properties!");
+			Debug.LogError("iTween Error: ValueTo() requires an 'onupdate' callback function and a 'from' and 'to' Property.  The supplied 'onupdate' callback must accept a single argument that is the same type as the supplied 'from' and 'to' properties!");
 			return;
 		}else{
 			//establish iTween:
@@ -1320,7 +1320,7 @@ public class iTween : MonoBehaviour{
 		//clean args:
 		args = iTween.CleanArgs(args);			
 		
-		//additional property to ensure ConflictCheck can work correctly since Transforms are refrences:		
+		//additional Property to ensure ConflictCheck can work correctly since Transforms are refrences:		
 		if(args.Contains("looktarget")){
 			if (args["looktarget"].GetType() == typeof(Transform)) {
 				Transform transform = (Transform)args["looktarget"];
@@ -1436,7 +1436,7 @@ public class iTween : MonoBehaviour{
 		//clean args:
 		args = iTween.CleanArgs(args);
 		
-		//additional property to ensure ConflictCheck can work correctly since Transforms are refrences:		
+		//additional Property to ensure ConflictCheck can work correctly since Transforms are refrences:		
 		if(args.Contains("position")){
 			if (args["position"].GetType() == typeof(Transform)) {
 				Transform transform = (Transform)args["position"];
@@ -1913,7 +1913,7 @@ public class iTween : MonoBehaviour{
 		//clean args:
 		args = iTween.CleanArgs(args);
 		
-		//additional property to ensure ConflictCheck can work correctly since Transforms are refrences:		
+		//additional Property to ensure ConflictCheck can work correctly since Transforms are refrences:		
 		if(args.Contains("scale")){
 			if (args["scale"].GetType() == typeof(Transform)) {
 				Transform transform = (Transform)args["scale"];
@@ -2290,7 +2290,7 @@ public class iTween : MonoBehaviour{
 		//clean args:
 		args = iTween.CleanArgs(args);
 		
-		//additional property to ensure ConflictCheck can work correctly since Transforms are refrences:		
+		//additional Property to ensure ConflictCheck can work correctly since Transforms are refrences:		
 		if(args.Contains("rotation")){
 			if (args["rotation"].GetType() == typeof(Transform)) {
 				Transform transform = (Transform)args["rotation"];
@@ -3470,7 +3470,7 @@ public class iTween : MonoBehaviour{
 				thisTransform.LookAt((Vector3)tweenArguments["looktarget"], (Vector3?)tweenArguments["up"] ?? Defaults.up);
 			}
 		}else{
-			Debug.LogError("iTween Error: LookTo needs a 'looktarget' property!");
+			Debug.LogError("iTween Error: LookTo needs a 'looktarget' Property!");
 			Dispose();
 		}
 
@@ -5340,7 +5340,7 @@ public class iTween : MonoBehaviour{
 				target.transform.LookAt((Vector3)args["looktarget"], (Vector3?)args["up"] ?? Defaults.up);
 			}
 		}else{
-			Debug.LogError("iTween Error: LookUpdate needs a 'looktarget' property!");
+			Debug.LogError("iTween Error: LookUpdate needs a 'looktarget' Property!");
 			return;
 		}
 		
@@ -7473,8 +7473,8 @@ public class iTween : MonoBehaviour{
 	public static void moveFrom(GameObject target, Hashtable args){Debug.LogError("iTween Error: moveFrom() has been renamed to MoveFrom().");}
 	public static void moveFromWorld(GameObject target, Hashtable args){Debug.LogError("iTween Error: moveFromWorld() has been deprecated. Please investigate MoveFrom().");}
 	public static void moveTo(GameObject target, Hashtable args){Debug.LogError("iTween Error: moveTo() has been renamed to MoveTo().");}
-	public static void moveToBezier(GameObject target, Hashtable args){Debug.LogError("iTween Error: moveToBezier() has been deprecated. Please investigate MoveTo() and the "path" property.");}
-	public static void moveToBezierWorld(GameObject target, Hashtable args){Debug.LogError("iTween Error: moveToBezierWorld() has been deprecated. Please investigate MoveTo() and the "path" property.");}
+	public static void moveToBezier(GameObject target, Hashtable args){Debug.LogError("iTween Error: moveToBezier() has been deprecated. Please investigate MoveTo() and the "path" Property.");}
+	public static void moveToBezierWorld(GameObject target, Hashtable args){Debug.LogError("iTween Error: moveToBezierWorld() has been deprecated. Please investigate MoveTo() and the "path" Property.");}
 	public static void moveToUpdate(GameObject target, Hashtable args){Debug.LogError("iTween Error: moveToUpdate() has been renamed to MoveUpdate().");}
 	public static void moveToUpdateWorld(GameObject target, Hashtable args){Debug.LogError("iTween Error: moveToUpdateWorld() has been deprecated. Please investigate MoveUpdate().");}
 	public static void moveToWorld(GameObject target, Hashtable args){Debug.LogError("iTween Error: moveToWorld() has been deprecated. Please investigate MoveTo().");}

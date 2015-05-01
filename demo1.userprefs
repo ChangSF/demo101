@@ -1,13 +1,19 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/_Scripts/Logical/_CommonGame/Player/PlayerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/_Scripts/Logical/_CommonGame/Monster/SmallMonster.cs">
     <Files>
-      <File FileName="Assets/_Scripts/Entity/CurrentGameInfo.cs" Line="33" Column="4" />
-      <File FileName="Assets/_Scripts/Logical/_CommonGame/Player/PlayerController.cs" Line="458" Column="49" />
-      <File FileName="Assets/_Scripts/Logical/_CommonGame/Player/PropertyMaster.cs" Line="68" Column="7" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Obstacle/Obstacle.cs" Line="25" Column="4" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Obstacle/WaterTank.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/Entity/CurrentGameInfo.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Player/PlayerController.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Player/PropertyMaster.cs" Line="1" Column="1" />
       <File FileName="Assets/_Scripts/Logical/_CommonGame/Prop/GoldCoin.cs" Line="1" Column="1" />
       <File FileName="Assets/_Scripts/Entity/PropInfo.cs" Line="1" Column="1" />
-      <File FileName="Assets/_Scripts/Logical/_CommonGame/Monster/Monster.cs" Line="24" Column="4" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Monster/Monster.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Player/ObstacleController.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Trigger/reStartTrigger.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Monster/MidMonster.cs" Line="22" Column="4" />
+      <File FileName="Assets/_Scripts/Logical/_CommonGame/Monster/SmallMonster.cs" Line="39" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
